@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'antlr'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+//    implementation 'io.quarkus:quarkus-rest-client-jackson'
+//    implementation 'io.quarkus:quarkus-rest-client'
+//    implementation 'io.quarkus:quarkus-cache'
+    implementation 'io.quarkus:quarkus-arc'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    implementation 'net.dv8tion:JDA:5.0.0-alpha.9'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    antlr 'org.antlr:antlr4:4.9.3'
+}
+
+group 'com.masflam'
+version '0.1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+generateGrammarSource {
+    arguments += ['-visitor', '-package', 'com.masflam.untie']
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
