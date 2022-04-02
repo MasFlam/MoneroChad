@@ -2,6 +2,29 @@
 MoneroChad is the bot of a Monero Discord server. It provides mainly Monero- and crypto-related
 commands.
 
+### Commands
+```
+===== Monero =====
+
+/xmr price
+ || Get current Monero price
+
+/xmr tx <tx-hash>
+ || Get info about the given Monero transaction.
+
+/xmr block <block-height|block-hash>
+ || Get info about the given Monero block.
+
+/xmr network
+ || Get info about the Monero network.
+
+
+===== Miscellaneous =====
+
+/calc <expression>
+ || Calculate the result of a mathematical expression.
+```
+
 <!--
 ## Packaging and running the application
 
