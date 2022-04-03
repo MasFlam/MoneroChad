@@ -25,11 +25,11 @@ public class XmrBlockCommand implements CommandHandler {
 		BlockData bd = mcs.getBlockData(blockHashOrHeight);
 		
 		var builder = new EmbedBuilder()
-			.setTitle("Block " + bd.height, "https://xmrchain.net/block/" + bd.height)
-			.setDescription("`" + bd.hash + "`")
-			.addField("Date and Time", "<t:" + bd.timestamp + ">", true)
-			.addField("Size", bd.size + " B", true)
-			.addField("Transactions", String.valueOf(bd.txs.length), true)
+			.setTitle("Block " + bd.height(), "https://xmrchain.net/block/" + bd.height())
+			.setDescription("`" + bd.hash() + "`")
+			.addField("Date and Time", "<t:" + bd.timestamp() + ">", true)
+			.addField("Size", bd.size() + " B", true)
+			.addField("Transactions", String.valueOf(bd.txs().length), true)
 			.setFooter("Powered by blox.minexmr.com");
 		
 		// TODO: buttons for paginating through transactions

@@ -24,12 +24,12 @@ public class XmrNetworkCommand implements CommandHandler {
 		NetworkInfo ni = mcs.getNetworkInfo();
 		
 		var builder = new EmbedBuilder()
-			.addField("Blockheight", String.valueOf(ni.blockheight), true)
-			.addField("Difficulty", ni.difficulty, true)
-			.addField("All-time Difficulty", ni.cumulativeDifficulty, true)
-			.addField("Hashrate", "%.1f GH/s".formatted(ni.hashRate / 1e9), true)
-			.addField("Hard Fork", "v" + ni.hardFork, true)
-			.addField("All-time Transactions", String.valueOf(ni.txCount), true)
+			.addField("Blockheight", String.valueOf(ni.blockheight()), true)
+			.addField("Difficulty", ni.difficulty(), true)
+			.addField("All-time Difficulty", ni.cumulativeDifficulty(), true)
+			.addField("Hashrate", "%.1f GH/s".formatted(ni.hashRate() / 1e9), true)
+			.addField("Hard Fork", "v" + ni.hardFork(), true)
+			.addField("All-time Transactions", String.valueOf(ni.txCount()), true)
 			.setFooter("Powered by blox.minexmr.com");
 		
 		ihook.sendMessageEmbeds(builder.build())

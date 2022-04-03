@@ -28,10 +28,10 @@ public class XmrPriceCommand implements CommandHandler {
 			.setColor(MoneroChad.MONERO_ORANGE)
 			.setFooter("Powered by CoinGecko", MoneroChad.COIN_GECKO_LOGO_URL);
 		builder.getDescriptionBuilder()
-			.append("```\nUSD ").append(cp.usd).append("\n```")
-			.append("```\nEUR ").append(cp.eur).append("\n```")
-			.append("```\nBTC ").append(cp.btc).append("\n```")
-			.append("\nData from <t:").append(cp.retrieved / 1000L).append(":R>");
+			.append("```\nUSD ").append(cp.usd()).append("\n```")
+			.append("```\nEUR ").append(cp.eur()).append("\n```")
+			.append("```\nBTC ").append(cp.btc()).append("\n```")
+			.append("\nData from <t:").append(cp.retrieved() / 1000L).append(":R>");
 		ihook.sendMessageEmbeds(builder.build()).queue();
 	}
 }

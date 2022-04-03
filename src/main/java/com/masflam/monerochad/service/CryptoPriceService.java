@@ -28,19 +28,12 @@ import okhttp3.Response;
 public class CryptoPriceService {
 	
 	@RegisterForReflection
-	public static class CryptoPrice {
-		public final long retrieved;
-		public final double usd;
-		public final double eur;
-		public final double btc;
-		
-		public CryptoPrice(long retrieved, double usd, double eur, double btc) {
-			this.retrieved = retrieved;
-			this.usd = usd;
-			this.eur = eur;
-			this.btc = btc;
-		}
-	}
+	public static record CryptoPrice(
+		long retrieved,
+		double usd,
+		double eur,
+		double btc
+	) {}
 	
 	@Inject
 	public OkHttpClient httpClient;

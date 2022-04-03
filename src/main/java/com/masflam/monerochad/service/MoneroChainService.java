@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -24,117 +25,67 @@ import okhttp3.Response;
 @ApplicationScoped
 public class MoneroChainService {
 	
-	public static class NetworkInfo {
-		public final long retrieved;
-		public final int blockheight;
-		public final String difficulty;
-		public final String cumulativeDifficulty;
-		public final int hardFork;
-		public final long txCount;
-		public final long hashRate;
-		public final long feePerByte;
-		
-		public NetworkInfo(long retrieved, int blockheight, String difficulty, String cumulativeDifficulty,
-				int hardFork, long txCount, long hashRate, long feePerByte) {
-			this.retrieved = retrieved;
-			this.blockheight = blockheight;
-			this.difficulty = difficulty;
-			this.cumulativeDifficulty = cumulativeDifficulty;
-			this.hardFork = hardFork;
-			this.txCount = txCount;
-			this.hashRate = hashRate;
-			this.feePerByte = feePerByte;
-		}
-	}
+	@RegisterForReflection
+	public static record NetworkInfo(
+		long retrieved,
+		int blockheight,
+		String difficulty,
+		String cumulativeDifficulty,
+		int hardFork,
+		long txCount,
+		long hashRate,
+		long feePerByte
+	) {}
 	
-	public static class BlockTransaction {
-		public final String hash;
-		public final boolean coinbase;
-		public final long fee;
-		public final int size;
-		
-		public BlockTransaction(String hash, boolean coinbase, long fee, int size) {
-			this.hash = hash;
-			this.coinbase = coinbase;
-			this.fee = fee;
-			this.size = size;
-		}
-	}
+	@RegisterForReflection
+	public static record BlockTransaction(
+		String hash,
+		boolean coinbase,
+		long fee,
+		int size
+	) {}
 	
-	public static class BlockData {
-		public final int height;
-		public final String hash;
-		public final int size;
-		public final long timestamp;
-		public final BlockTransaction[] txs;
-		
-		public BlockData(int height, String hash, int size, long timestamp, BlockTransaction[] txs) {
-			this.height = height;
-			this.hash = hash;
-			this.size = size;
-			this.timestamp = timestamp;
-			this.txs = txs;
-		}
-	}
+	@RegisterForReflection
+	public static record BlockData(
+		int height,
+		String hash,
+		int size,
+		long timestamp,
+		BlockTransaction[] txs
+	) {}
 	
-	public static class Mixin {
-		public final int blockHeight;
-		public final String publicKey;
-		public final String txHash;
-		
-		public Mixin(int blockHeight, String publicKey, String txHash) {
-			this.blockHeight = blockHeight;
-			this.publicKey = publicKey;
-			this.txHash = txHash;
-		}
-	}
+	@RegisterForReflection
+	public static record Mixin(
+		int blockHeight,
+		String publicKey,
+		String txHash
+	) {}
 	
-	public static class Input {
-		public final String keyImage;
-		public final Mixin[] mixins;
-		
-		public Input(String keyImage, Mixin[] mixins) {
-			this.keyImage = keyImage;
-			this.mixins = mixins;
-		}
-	}
+	@RegisterForReflection
+	public static record Input(
+		String keyImage,
+		Mixin[] mixins
+	) {}
 	
-	public static class Output {
-		public final String publicKey;
-		
-		public Output(String publicKey) {
-			this.publicKey = publicKey;
-		}
-	}
+	@RegisterForReflection
+	public static record Output(
+		String publicKey
+	) {}
 	
-	public static class TransactionData {
-		public final String hash;
-		public final int blockHeight;
-		public final int confirmations;
-		public final boolean coinbase;
-		public final long timestamp;
-		public final long fee;
-		public final int size;
-		public final int rctType;
-		public final int version;
-		public final Input[] inputs;
-		public final Output[] outputs;
-		
-		public TransactionData(String hash, int blockHeight, int confirmations, boolean coinbase,
-				long timestamp, long fee, int size, int rctType, int version, Input[] inputs, Output[] outputs) {
-			this.hash = hash;
-			this.blockHeight = blockHeight;
-			this.confirmations = confirmations;
-			this.coinbase = coinbase;
-			this.timestamp = timestamp;
-			this.fee = fee;
-			this.size = size;
-			this.rctType = rctType;
-			this.version = version;
-			this.inputs = inputs;
-			this.outputs = outputs;
-		}
-	}
+	@RegisterForReflection
+	public static record TransactionData(
+		String hash,
+		int blockHeight,
+		int confirmations,
+		boolean coinbase,
+		long timestamp,
+		long fee,
+		int size,
+		int rctType,
+		int version,
+		Input[] inputs,
+		Output[] outputs
+	) {}
 	
 	private static final String BASE_URL = "https://blox.minexmr.com/api";
 	
