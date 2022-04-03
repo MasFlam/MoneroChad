@@ -43,7 +43,7 @@ public class MoneroChad {
 		
 		httpClient = jda.getHttpClient();
 		
-		var guild = jda.getGuildById(683710776023711805L);
+		var guild = jda.getGuildById(959831716464308254L);
 		guild.upsertCommand("calc", "Calculate a mathematical expression")
 			.addOption(OptionType.STRING, "expression", "The expresion to calculate", true)
 			.queue();
@@ -52,13 +52,13 @@ public class MoneroChad {
 				new SubcommandData("price", "Get Monero price"),
 				new SubcommandData("tx", "Get info on a monero transaction")
 					.addOption(OptionType.STRING, "hash", "Transaction hash", true),
-				new SubcommandData("network", "Monero network information")
+				new SubcommandData("network", "Monero network information"),
 				//new SubcommandData("mempool", "List transactions currently in the mempool"),
 				//new SubcommandData("txs", "List transactions")
 				//	.addOption(OptionType.INTEGER, "pageno", "Page number", false)
 				//	.addOption(OptionType.INTEGER, "pagesz", "Number of transactions per page", false),
-				//new SubcommandData("block", "Get info on a block")
-				//	.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true)
+				new SubcommandData("block", "Get info on a block")
+					.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true)
 			).queue();
 	}
 	
