@@ -47,6 +47,7 @@ public class MoneroChainService {
 	
 	@RegisterForReflection
 	public static record BlockData(
+		long retrieved,
 		int height,
 		String hash,
 		int size,
@@ -74,6 +75,7 @@ public class MoneroChainService {
 	
 	@RegisterForReflection
 	public static record TransactionData(
+		long retrieved,
 		String hash,
 		int blockHeight,
 		int confirmations,
@@ -189,6 +191,7 @@ public class MoneroChainService {
 						);
 					}
 					future.complete(new BlockData(
+						System.currentTimeMillis(),
 						data.get("block_height").asInt(),
 						data.get("hash").asText(),
 						data.get("size").asInt(),
@@ -254,6 +257,7 @@ public class MoneroChainService {
 					}
 					
 					future.complete(new TransactionData(
+						System.currentTimeMillis(),
 						data.get("tx_hash").asText(),
 						data.get("block_height").asInt(),
 						data.get("confirmations").asInt(),

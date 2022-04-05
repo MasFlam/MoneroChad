@@ -5,6 +5,7 @@ import javax.inject.Inject;
 
 import com.masflam.monerochad.CommandHandler;
 import com.masflam.monerochad.CommandPath;
+import com.masflam.monerochad.Chad;
 import com.masflam.monerochad.service.MoneroChainService;
 import com.masflam.monerochad.service.MoneroChainService.NetworkInfo;
 
@@ -24,6 +25,7 @@ public class XmrNetworkCommand implements CommandHandler {
 		NetworkInfo ni = mcs.getNetworkInfo();
 		
 		var builder = new EmbedBuilder()
+			.setColor(Chad.ORANGE)
 			.addField("Blockheight", String.valueOf(ni.blockheight()), true)
 			.addField("Difficulty", ni.difficulty(), true)
 			.addField("All-time Difficulty", ni.cumulativeDifficulty(), true)

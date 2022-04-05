@@ -5,7 +5,7 @@ import javax.inject.Inject;
 
 import com.masflam.monerochad.CommandHandler;
 import com.masflam.monerochad.CommandPath;
-import com.masflam.monerochad.MoneroChad;
+import com.masflam.monerochad.Chad;
 import com.masflam.monerochad.service.CryptoPriceService;
 import com.masflam.monerochad.service.CryptoPriceService.CryptoPrice;
 
@@ -24,9 +24,9 @@ public class XmrPriceCommand implements CommandHandler {
 	public void handle(SlashCommandInteractionEvent event, InteractionHook ihook) throws Exception {
 		CryptoPrice cp = cps.getPrice("monero");
 		var builder = new EmbedBuilder()
-			.setAuthor("Monero price", null, MoneroChad.MONERO_LOGO_URL)
-			.setColor(MoneroChad.MONERO_ORANGE)
-			.setFooter("Powered by CoinGecko", MoneroChad.COIN_GECKO_LOGO_URL);
+			.setAuthor("Monero price", null, Chad.MONERO_LOGO_URL)
+			.setColor(Chad.ORANGE)
+			.setFooter("Powered by CoinGecko", Chad.COIN_GECKO_LOGO_URL);
 		builder.getDescriptionBuilder()
 			.append("```\nUSD ").append(cp.usd()).append("\n```")
 			.append("```\nEUR ").append(cp.eur()).append("\n```")

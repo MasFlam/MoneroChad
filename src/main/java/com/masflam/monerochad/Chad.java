@@ -18,13 +18,19 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import okhttp3.OkHttpClient;
 
 @ApplicationScoped
-public class MoneroChad {
+public class Chad {
 	
-	public static final int MONERO_ORANGE = 0xff6600;
+	// Our colors
+	public static final int ORANGE = 0xff6600;
+	public static final int GREEN = 0x3de500;
+	public static final int RED = 0xd73000;
+	public static final int BLUE = 0x003fba;
+	public static final int YELLOW = 0xede300;
+	
 	public static final String MONERO_LOGO_URL = "https://www.getmonero.org/press-kit/symbols/monero-symbol-on-white-800.png";
 	public static final String COIN_GECKO_LOGO_URL = "https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png";
 	
-	@ConfigProperty(name = "monerochad.token")
+	@ConfigProperty(name = "monerochad.token", defaultValue = "")
 	protected String token;
 	
 	@Inject
