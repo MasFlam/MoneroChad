@@ -53,6 +53,9 @@ public class Chad {
 		guild.upsertCommand("calc", "Calculate a mathematical expression")
 			.addOption(OptionType.STRING, "expression", "The expresion to calculate", true)
 			.queue();
+		guild.upsertCommand("price", "Get the price of a cryptocurrency")
+			.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)")
+			.queue();
 		guild.upsertCommand("xmr", "Monero-related commands")
 			.addSubcommands(
 				new SubcommandData("price", "Get Monero price"),

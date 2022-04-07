@@ -4,5 +4,5 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.InteractionHook;
 
 public interface CommandHandler {
-	default void handle(SlashCommandInteractionEvent event, InteractionHook ihook) throws Exception {}
+	void handle(SlashCommandInteractionEvent event, InteractionHook ihook) throws Exception;
 }

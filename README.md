@@ -7,7 +7,7 @@ commands.
 ===== Monero =====
 
 /xmr price
- || Get current Monero price
+ || Get current Monero price.
 
 /xmr tx <tx-hash>
  || Get info about the given Monero transaction.
@@ -17,6 +17,15 @@ commands.
 
 /xmr network
  || Get info about the Monero network.
+
+/xmr links
+ || Browse links to Monero-related sites and resources.
+
+
+===== Cryptocurrency =====
+
+/price <coingecko-id>
+ || Get the price of the given crypto.
 
 
 ===== Miscellaneous =====

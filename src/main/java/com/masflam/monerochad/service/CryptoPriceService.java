@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.masflam.monerochad.exception.NotFoundException;
 
+import org.apache.commons.collections4.map.LRUMap;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
@@ -44,7 +47,15 @@ public class CryptoPriceService {
 	@ConfigProperty(name = "monerochad.price-cache-ttl")
 	public Duration priceCacheTtl;
 	
-	private ConcurrentMap<String, CryptoPrice> priceCache = new ConcurrentHashMap<>();
+	@ConfigProperty(name = "monerochad.price-cache-limit")
+	public int priceCacheLimit;
+	
+	private Map<String, CryptoPrice> priceCache;
+	
+	@PostConstruct
+	public void postConstruct() {
+		priceCache = Collections.synchronizedMap(new LRUMap<>(priceCacheLimit));
+	}
 	
 	public CryptoPrice getPrice(String id) throws InterruptedException, ExecutionException, UnsupportedEncodingException {
 		return fetchPrice(id).get();
@@ -74,6 +85,9 @@ public class CryptoPriceService {
 				try {
 					JsonNode json = mapper.readTree(response.body().byteStream());
 					JsonNode data = json.get(id);
+					if (data == null) {
+						throw new NotFoundException();
+					}
 					future.complete(new CryptoPrice(
 						System.currentTimeMillis(),
 						data.get("usd").asDouble(),
