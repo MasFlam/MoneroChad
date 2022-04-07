@@ -14,10 +14,12 @@ dependencies {
 //    implementation 'io.quarkus:quarkus-rest-client-jackson'
 //    implementation 'io.quarkus:quarkus-rest-client'
 //    implementation 'io.quarkus:quarkus-cache'
+    implementation 'io.quarkus:quarkus-scheduler'
     implementation 'io.quarkus:quarkus-arc'
     testImplementation 'io.quarkus:quarkus-junit5'
     implementation 'net.dv8tion:JDA:5.0.0-alpha.9'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.dom4j:dom4j:2.1.3'
     antlr 'org.antlr:antlr4:4.9.3'
 }
 
