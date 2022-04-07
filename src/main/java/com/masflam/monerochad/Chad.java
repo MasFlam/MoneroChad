@@ -34,7 +34,7 @@ public class Chad {
 	protected String token;
 	
 	@Inject
-	public CommandListener commandListener;
+	public DiscordListener discordListener;
 	
 	@Produces
 	public OkHttpClient httpClient;
@@ -44,7 +44,7 @@ public class Chad {
 	
 	public void onStartup(@Observes StartupEvent evt) throws LoginException, InterruptedException {
 		var jda = JDABuilder.createLight(token)
-			.addEventListeners(commandListener)
+			.addEventListeners(discordListener)
 			.build().awaitReady();
 		
 		httpClient = jda.getHttpClient();
@@ -64,7 +64,8 @@ public class Chad {
 				//	.addOption(OptionType.INTEGER, "pageno", "Page number", false)
 				//	.addOption(OptionType.INTEGER, "pagesz", "Number of transactions per page", false),
 				new SubcommandData("block", "Get info on a block")
-					.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true)
+					.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true),
+				new SubcommandData("links", "Get a list of links to Monero resources")
 			).queue();
 	}
 	

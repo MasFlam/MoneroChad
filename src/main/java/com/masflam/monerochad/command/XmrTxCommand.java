@@ -3,9 +3,9 @@ package com.masflam.monerochad.command;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import com.masflam.monerochad.CommandHandler;
-import com.masflam.monerochad.CommandPath;
 import com.masflam.monerochad.Chad;
+import com.masflam.monerochad.CommandPath;
+import com.masflam.monerochad.command.handler.CommandHandler;
 import com.masflam.monerochad.service.MoneroChainService;
 import com.masflam.monerochad.service.MoneroChainService.TransactionData;
 

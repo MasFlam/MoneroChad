@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import com.masflam.monerochad.CommandHandler;
 import com.masflam.monerochad.CommandPath;
+import com.masflam.monerochad.command.handler.CommandHandler;
 import com.masflam.untie.UntieBaseVisitor;
 import com.masflam.untie.UntieLexer;
 import com.masflam.untie.UntieParser;

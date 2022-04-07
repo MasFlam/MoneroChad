@@ -1,14 +1,17 @@
 package com.masflam.monerochad.command;
 
+import java.util.concurrent.ExecutionException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import com.masflam.monerochad.CommandHandler;
-import com.masflam.monerochad.CommandPath;
 import com.masflam.monerochad.Chad;
+import com.masflam.monerochad.CommandPath;
+import com.masflam.monerochad.command.handler.CommandHandler;
 import com.masflam.monerochad.service.MoneroChainService;
 import com.masflam.monerochad.service.MoneroChainService.NetworkInfo;
 
+import io.quarkus.logging.Log;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
@@ -22,7 +25,14 @@ public class XmrNetworkCommand implements CommandHandler {
 	
 	@Override
 	public void handle(SlashCommandInteractionEvent event, InteractionHook ihook) throws Exception {
-		NetworkInfo ni = mcs.getNetworkInfo();
+		NetworkInfo ni;
+		try {
+			ni = mcs.getNetworkInfo();
+		} catch (ExecutionException e) {
+			Log.info("stupid buggy /networkinfo");
+			Thread.sleep(500);
+			ni = mcs.getNetworkInfo();
+		}
 		
 		var builder = new EmbedBuilder()
 			.setColor(Chad.ORANGE)

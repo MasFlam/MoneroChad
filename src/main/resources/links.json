@@ -1,0 +1,44 @@
+[
+	{
+		"title": "Wallets",
+		"links": [
+			"[Monerujo](https://monerujo.io) for Android",
+			"[Cake](https://cakewallet.com) for Android, iOS",
+			"[Monero.com by Cake](https://monero.com) for Android, iOS",
+			"[Feather](https://featherwallet.org) for Windows, Linux, Mac OS",
+			"[\"Official\" GUI and CLI](https://www.getmonero.org/downloads) for Windows, Linux, Mac OS"
+		]
+	},
+	{
+		"title": "Funding",
+		"links": [
+			"[Community Crowdfunding System (CCS)](https://ccs.getmonero.org)",
+			"[Monero Bounties](https://bounties.monero.social)"
+		]
+	},
+	{
+		"title": "Informational",
+		"links": [
+			"[getmonero.org](https://getmonero.org)",
+			"[Monero Info Dump](https://moneroinfodump.neocities.org)",
+			"[Moneropedia](https://www.getmonero.org/resources/moneropedia)"
+		]
+	},
+	{
+		"title": "Blockchain Explorers",
+		"links": [
+			"[XMRChain](https://xmrchain.net)",
+			"[ExploreMonero](https://exploremonero.com)",
+			"[LocalMonero Explorer](https://localmonero.co/blocks)",
+			"[MoneroHash Explorer](https://monerohash.com/explorer)"
+		]
+	},
+	{
+		"title": "Exchanges and Swap Services",
+		"links": [
+			"[TradeOgre](https://tradeogre.com)",
+			"[LocalMonero](https://localmonero.co) / [AgoraDesk](https://agoradesk.com)",
+			"[SwapZone](https://swapzone.io)"
+		]
+	}
+]
