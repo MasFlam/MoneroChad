@@ -38,12 +38,13 @@ public class PriceCommand implements CommandHandler {
 			}
 		}
 		var builder = new EmbedBuilder()
-			.setTitle("Price of " + cgid)
+			.setTitle("Price of `" + cgid + "`")
+			.setColor(Chad.YELLOW)
 			.setFooter("Powered by CoinGecko", Chad.COIN_GECKO_LOGO_URL);
 		builder.getDescriptionBuilder()
-			.append("```\nUSD ").append(cp.usd()).append("\n```")
-			.append("```\nEUR ").append(cp.eur()).append("\n```")
-			.append("```\nBTC ").append(cp.btc()).append("\n```")
+			.append("```\nUSD ").append("%.20f".formatted(cp.usd()).replaceAll("\\.?0*$", "")).append("\n```")
+			.append("```\nEUR ").append("%.20f".formatted(cp.eur()).replaceAll("\\.?0*$", "")).append("\n```")
+			.append("```\nBTC ").append("%.20f".formatted(cp.btc()).replaceAll("\\.?0*$", "")).append("\n```")
 			.append("\nData from <t:").append(cp.retrieved() / 1000L).append(":R>");
 		ihook.sendMessageEmbeds(builder.build()).queue();
 	}
