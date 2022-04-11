@@ -73,7 +73,7 @@ public class DiscordListener extends ListenerAdapter {
 		String componentId = event.getComponentId();
 		int pathLen = componentId.indexOf(' ');
 		String path = componentId.substring(0, pathLen);
-		String idData = componentId.substring(pathLen);
+		String idData = componentId.substring(pathLen + 1);
 		
 		var annotation = CommandPath.Literal.of(path);
 		
@@ -121,7 +121,7 @@ public class DiscordListener extends ListenerAdapter {
 		String componentId = event.getComponentId();
 		int pathLen = componentId.indexOf(' ');
 		String path = componentId.substring(0, pathLen);
-		String idData = componentId.substring(pathLen);
+		String idData = componentId.substring(pathLen + 1);
 		
 		var annotation = CommandPath.Literal.of(path);
 		
@@ -163,6 +163,5 @@ public class DiscordListener extends ListenerAdapter {
 				}
 			}
 		}
-		
 	}
 }
