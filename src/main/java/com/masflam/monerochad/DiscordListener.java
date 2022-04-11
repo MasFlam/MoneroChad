@@ -65,6 +65,8 @@ public class DiscordListener extends ListenerAdapter {
 					Log.errorf(t, "Error in command handler");
 				}
 			});
+		} else {
+			event.reply("Unknown command").queue();
 		}
 	}
 	
