@@ -48,6 +48,10 @@ public class Chad {
 	@Produces
 	public ObjectMapper objectMapper = new ObjectMapper();
 	
+	public static String version() {
+		return "0.1.0";
+	}
+	
 	public void onStartup(@Observes StartupEvent evt) throws LoginException, InterruptedException {
 		jda = JDABuilder.createLight(token)
 			.setHttpClient(httpClient)
@@ -62,6 +66,7 @@ public class Chad {
 			guild.upsertCommand("price", "Get the price of a cryptocurrency")
 				.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)", true)
 				.queue();
+			guild.upsertCommand("bot", "Bot info").queue();
 			guild.upsertCommand("xmr", "Monero-related commands")
 				.addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
