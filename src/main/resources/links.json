@@ -17,11 +17,32 @@
 		]
 	},
 	{
-		"title": "Informational",
+		"title": "Mining",
 		"links": [
-			"[getmonero.org](https://getmonero.org)",
+			"[XMRig](https://xmrig.com)",
+			"[P2Pool](https://p2pool.io) / [P2Pool Mini](https://p2pool.io/mini)",
+			"[MoneroOcean](https://moneroocean.stream)",
+			"[Cryptonote.Social](https://cryptonote.social)"
+		]
+	},
+	{
+		"title": "Community",
+		"links": [
+			"[Monero Space](https://monero.space)",
+			"[Subreddit](https://reddit.com/r/Monero)",
+			"[Monero Memes](https://xmrmemes.com)",
+			"[Matrix and IRC](https://getmonero.org/community/hangouts)"
+		]
+	},
+	{
+		"title": "Informational & News",
+		"links": [
+			"[GetMonero.org](https://getmonero.org)",
+			"[Monero Observer](https://monero.observer)",
 			"[Monero Info Dump](https://moneroinfodump.neocities.org)",
-			"[Moneropedia](https://www.getmonero.org/resources/moneropedia)"
+			"[Moneropedia](https://www.getmonero.org/resources/moneropedia)",
+			"[KYC? Not me!](https://kycnot.me)",
+			"[MoneroResearch.info](https://moneroresearch.info)"
 		]
 	},
 	{
@@ -29,8 +50,7 @@
 		"links": [
 			"[XMRChain](https://xmrchain.net)",
 			"[ExploreMonero](https://exploremonero.com)",
-			"[LocalMonero Explorer](https://localmonero.co/blocks)",
-			"[MoneroHash Explorer](https://monerohash.com/explorer)"
+			"[LocalMonero Explorer](https://localmonero.co/blocks)"
 		]
 	},
 	{
@@ -38,7 +58,16 @@
 		"links": [
 			"[TradeOgre](https://tradeogre.com)",
 			"[LocalMonero](https://localmonero.co) / [AgoraDesk](https://agoradesk.com)",
+			"[SideShift](https://sideshift.ai)",
 			"[SwapZone](https://swapzone.io)"
+		]
+	},
+	{
+		"title": "Related Blockchain Projects",
+		"links": [
+			"[Wownero](https://wownero.org)",
+			"[Tari](https://tari.com)",
+			"[Townforge](https://townforge.net)"
 		]
 	}
 ]

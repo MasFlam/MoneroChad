@@ -32,6 +32,9 @@ commands.
 
 /calc <expression>
  || Calculate the result of a mathematical expression.
+
+/bot
+ || Bot info and credits
 ```
 
 <!--
