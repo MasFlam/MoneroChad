@@ -48,10 +48,6 @@ public class Chad {
 	@Produces
 	public ObjectMapper objectMapper = new ObjectMapper();
 	
-	public static String version() {
-		return "0.1.0";
-	}
-	
 	public void onStartup(@Observes StartupEvent evt) throws LoginException, InterruptedException {
 		jda = JDABuilder.createLight(token)
 			.setHttpClient(httpClient)
