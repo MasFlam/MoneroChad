@@ -10,9 +10,9 @@ import com.masflam.monerochad.Chad;
 import com.masflam.monerochad.CommandPath;
 import com.masflam.monerochad.command.handler.CommandHandler;
 import com.masflam.monerochad.command.handler.SelectMenuEditHandler;
-import com.masflam.monerochad.service.CryptoPriceService;
-import com.masflam.monerochad.service.CryptoPriceService.CryptoInfo;
-import com.masflam.monerochad.service.CryptoPriceService.CryptoPrice;
+import com.masflam.monerochad.service.CoinGeckoService;
+import com.masflam.monerochad.service.CoinGeckoService.CryptoInfo;
+import com.masflam.monerochad.service.CoinGeckoService.CryptoPrice;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -25,10 +25,10 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 	
 	@Inject
-	public CryptoPriceService cps;
+	public CoinGeckoService cgs;
 	
 	private EmbedBuilder response(CryptoInfo ci) throws Exception {
-		CryptoPrice cp = cps.getPrice(ci.id());
+		CryptoPrice cp = cgs.getPrice(ci.id());
 		var builder = new EmbedBuilder()
 			.setTitle("Price of " + ci.name())
 			.setColor(Chad.YELLOW)
@@ -48,8 +48,8 @@ public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 		String arg = event.getOption("crypto").getAsString().toLowerCase();
 		
 		Set<CryptoInfo> opts = new HashSet<>();
-		CryptoInfo byId = cps.getCryptoInfoById(arg);
-		var bySymbol = cps.getCryptoInfoBySymbol(arg);
+		CryptoInfo byId = cgs.getCryptoInfoById(arg);
+		var bySymbol = cgs.getCryptoInfoBySymbol(arg);
 		if (byId != null) opts.add(byId);
 		opts.addAll(bySymbol);
 		
@@ -76,7 +76,7 @@ public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 	@Override
 	public void handleSelectMenu(SelectMenuInteractionEvent event, InteractionHook ihook, String idData)
 			throws Exception {
-		var ci = cps.getCryptoInfoById(event.getSelectedOptions().get(0).getValue());
+		var ci = cgs.getCryptoInfoById(event.getSelectedOptions().get(0).getValue());
 		ihook.editOriginalEmbeds(response(ci).build()).queue();
 	}
 }

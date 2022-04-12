@@ -33,7 +33,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @ApplicationScoped
-public class CryptoPriceService {
+public class CoinGeckoService {
 	
 	@RegisterForReflection
 	public static record CryptoPrice(
