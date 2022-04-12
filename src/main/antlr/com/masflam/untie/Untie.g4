@@ -2,7 +2,12 @@ grammar Untie;
 
 input: expr EOF;
 
-expr: plusMinus;
+expr: where;
+
+where
+	: where WHERE SYMBOL EQ plusMinus
+	| plusMinus
+;
 
 plusMinus
 	: plusMinus (ops+=(PLUS | MINUS) multDiv)+
@@ -35,5 +40,9 @@ DIV: '/';
 POW: '^';
 LPAREN: '(';
 RPAREN: ')';
+EQ: '=';
+WHERE: 'where';
 NUMBER: [0-9]+;
 SYMBOL: [a-z]+;
+
+WS: [\t\n\r ] -> skip;

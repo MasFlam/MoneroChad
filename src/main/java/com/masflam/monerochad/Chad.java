@@ -56,9 +56,13 @@ public class Chad {
 		
 		for (String id : guildIds.split(",")) {
 			var guild = jda.getGuildById(id);
-			guild.upsertCommand("calc", "Calculate a mathematical expression")
-				.addOption(OptionType.STRING, "expression", "The expresion to calculate", true)
-				.queue();
+			
+			guild.upsertCommand("untie", "Math")
+				.addSubcommands(
+					new SubcommandData("help", "Command help"),
+					new SubcommandData("calc", "Calculate a mathematical expression")
+						.addOption(OptionType.STRING, "expression", "The expresion to calculate", true)
+				).queue();
 			guild.upsertCommand("price", "Get the price of a cryptocurrency")
 				.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)", true)
 				.queue();

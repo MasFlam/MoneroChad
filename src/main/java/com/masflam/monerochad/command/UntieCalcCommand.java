@@ -2,6 +2,7 @@ package com.masflam.monerochad.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -18,13 +19,17 @@ import com.masflam.untie.UntieParser.MultDivContext;
 import com.masflam.untie.UntieParser.PlusMinusContext;
 import com.masflam.untie.UntieParser.PowContext;
 import com.masflam.untie.UntieParser.UnaryPlusMinusContext;
+import com.masflam.untie.UntieParser.WhereContext;
+import com.masflam.untie.exception.UnrecognizedSymbolException;
 import com.masflam.untie.expr.Expression;
 import com.masflam.untie.expr.Fraction;
 import com.masflam.untie.expr.IntegerLiteral;
 import com.masflam.untie.expr.PowerTower;
 import com.masflam.untie.expr.Product;
 import com.masflam.untie.expr.Sum;
+import com.masflam.untie.expr.SymbolLiteral;
 import com.masflam.untie.expr.UnaryMinus;
+import com.masflam.untie.expr.Where;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -33,8 +38,8 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.InteractionHook;
 
 @ApplicationScoped
-@CommandPath("calc")
-public class CalcCommand implements CommandHandler {
+@CommandPath("untie/calc")
+public class UntieCalcCommand implements CommandHandler {
 	
 	@Override
 	public void handle(SlashCommandInteractionEvent event, InteractionHook ihook) throws Exception {
@@ -53,7 +58,19 @@ public class CalcCommand implements CommandHandler {
 			
 			@Override
 			public Expression visitExpr(ExprContext ctx) {
-				return visit(ctx.plusMinus());
+				return visit(ctx.where());
+			}
+			
+			@Override
+			public Expression visitWhere(WhereContext ctx) {
+				if (ctx.where() == null) {
+					return visit(ctx.plusMinus());
+				} else {
+					Expression expr = visit(ctx.where());
+					String sym = ctx.SYMBOL().getText();
+					Expression symExpr = visit(ctx.plusMinus());
+					return new Where(expr, sym, symExpr);
+				}
 			}
 			
 			@Override
@@ -130,14 +147,21 @@ public class CalcCommand implements CommandHandler {
 			
 			@Override
 			public Expression visitLiteral(LiteralContext ctx) {
-				int val = ctx.NUMBER() != null ? Integer.parseInt(ctx.NUMBER().getText()) : -42;
-				return new IntegerLiteral(val);
+				if (ctx.SYMBOL() != null) {
+					return new SymbolLiteral(ctx.SYMBOL().getText());
+				} else {
+					return new IntegerLiteral(Integer.parseInt(ctx.NUMBER().getText()));
+				}
 			}
 		};
 		
 		Expression expr = visitor.visit(parser.input());
-		double result = Expression.evaluate(expr);
 		
-		ihook.sendMessage("```\n" + expr + " = " + result + "\n```").queue();
+		try {
+			double result = Expression.evaluate(expr, Map.of());
+			ihook.sendMessage("```\n" + expr + " = " + result + "\n```").queue();
+		} catch (UnrecognizedSymbolException use) {
+			ihook.sendMessage("Unrecognized symbol: `" + use.getSymbol() + "`").queue();
+		}
 	}
 }

@@ -28,47 +28,43 @@ commands.
  || Get the price of the given crypto.
 
 
-===== Miscellaneous =====
+===== Untie (math) =====
 
-/calc <expression>
+/untie help
+ || Untie help.
+
+/untie calc <expression>
  || Calculate the result of a mathematical expression.
 
+
+===== Miscellaneous =====
+
 /bot
- || Bot info and credits
+ || Bot info and credits.
 ```
 
-<!--
-## Packaging and running the application
+### Deployment
+- Wherever the command `gradle` is used, you can use `./gradlew` instead if you don't have Gradle
+  installed, or you have an old version.
+- These commands are meant for Linux deployment.
+- You need Java 17 or newer
 
-The application can be packaged using:
-```shell script
-./gradlew build
+#### Build the uber jar
+```sh
+gradle build -Dquarkus.package.type=uber-jar
 ```
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
+Now `build/monerochad-VERSION-runner.jar` is a standalone, runnable jar. You can copy it to wherever
+you want to run the bot from.
 
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./gradlew build -Dquarkus.package.type=uber-jar
+#### Create a `.env` file
 ```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native
+MONEROCHAD_TOKEN=Your Discord API bot token
+MONEROCHAD_GUILD_IDS=Comma separated IDs of guilds the bot runs in
+MONEROCHAD_NEWS_CHANNEL_IDS=Comma separated IDs of channels the bot relays news feeds to
 ```
+Put this into a file named `.env` in the directory the bot will run in.
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+#### Run the bot
+```sh
+java -jar monerochad-VERSION-runner.jar
 ```
-
-You can then execute your native executable with: `./build/monerochad-0.1.0-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
--->
