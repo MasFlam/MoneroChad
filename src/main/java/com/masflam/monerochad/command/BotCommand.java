@@ -28,8 +28,10 @@ public class BotCommand implements CommandHandler {
 			.setColor(Chad.ORANGE)
 			.addField("Author", "<@141628425835118592>", true)
 			.addField("Version", appConfig.version.get(), true)
-			.addField("Donations are welcome :)", "```%s```".formatted(ADDRESS), false)
-			.setDescription("Monero-themed Discord bot. <:xmr:909154208685629461>");
+			.addField("Donations are welcome :)", "```%s```".formatted(ADDRESS), false);
+		builder.getDescriptionBuilder()
+			.append("Monero-themed Discord bot. <:xmr:909154208685629461>\n")
+			.append("Please report any encountered bugs to the author. :beetle:");
 		ihook.sendMessageEmbeds(builder.build()).queue();
 	}
 }
