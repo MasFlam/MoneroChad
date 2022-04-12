@@ -67,6 +67,9 @@ public class Chad {
 				.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)", true)
 				.queue();
 			guild.upsertCommand("bot", "Bot info").queue();
+			guild.upsertCommand("time", "Get current time around in the world")
+				.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true)
+				.queue();
 			guild.upsertCommand("xmr", "Monero-related commands")
 				.addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
