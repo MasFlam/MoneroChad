@@ -39,6 +39,9 @@ commands.
 
 ===== Miscellaneous =====
 
+/time
+ || Get current time in a given timezone.
+
 /bot
  || Bot info and credits.
 ```
