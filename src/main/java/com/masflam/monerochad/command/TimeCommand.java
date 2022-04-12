@@ -24,10 +24,11 @@ import net.dv8tion.jda.api.interactions.InteractionHook;
 @CommandPath("time")
 public class TimeCommand implements CommandHandler {
 	
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("**hh:mm:ss a**, MMMM d, yyyy");
+	
 	@Inject
 	public ObjectMapper mapper;
 	
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("**hh:mm:ss a**, MMMM d, yyyy");
 	private Map<String, String> aliases;
 	
 	@PostConstruct
@@ -52,7 +53,7 @@ public class TimeCommand implements CommandHandler {
 		var builder = new EmbedBuilder()
 			.setTitle("Time for `" + zone + "`")
 			.setColor(Chad.ORANGE)
-			.setDescription(ldt.format(formatter));
+			.setDescription(ldt.format(FORMATTER));
 		ihook.sendMessageEmbeds(builder.build()).queue();
 	}
 }
