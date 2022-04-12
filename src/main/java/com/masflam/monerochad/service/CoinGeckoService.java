@@ -50,6 +50,8 @@ public class CoinGeckoService {
 		String name
 	) {}
 	
+	private static final String BASE_URL = "https://api.coingecko.com/api/v3";
+	
 	@Inject
 	public OkHttpClient httpClient;
 	
@@ -75,7 +77,7 @@ public class CoinGeckoService {
 			new Request.Builder()
 				.get()
 				.header("Accept", "application/json")
-				.url("https://api.coingecko.com/api/v3/coins/list")
+				.url(BASE_URL + "/coins/list")
 				.build()
 		);
 		try (var resp = call.execute()) {
@@ -113,7 +115,7 @@ public class CoinGeckoService {
 			new Request.Builder()
 				.get()
 				.header("Accept", "application/json")
-				.url("https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd,eur,btc&ids=" + URLEncoder.encode(id, "utf-8"))
+				.url(BASE_URL + "/simple/price?vs_currencies=usd,eur,btc&ids=" + URLEncoder.encode(id, "utf-8"))
 				.build()
 		).enqueue(new Callback() {
 			

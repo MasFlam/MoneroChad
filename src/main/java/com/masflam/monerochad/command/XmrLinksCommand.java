@@ -1,19 +1,16 @@
 package com.masflam.monerochad.command;
 
-import java.io.IOException;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masflam.monerochad.Chad;
 import com.masflam.monerochad.CommandPath;
 import com.masflam.monerochad.command.handler.CommandHandler;
 import com.masflam.monerochad.command.handler.SelectMenuEditHandler;
 
+import io.quarkus.logging.Log;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
@@ -33,13 +30,17 @@ public class XmrLinksCommand implements CommandHandler, SelectMenuEditHandler {
 	public ObjectMapper mapper;
 	
 	@PostConstruct
-	public void init() throws StreamReadException, DatabindException, IOException {
-		try (var stream = getClass().getResourceAsStream("/links.json")) {
-			sections = mapper.readValue(stream, Section[].class);
-		}
-		menuBuilder = SelectMenu.create("xmr/links browse").setPlaceholder("Choose topic");
-		for (int i = 0; i < sections.length; ++i) {
-			menuBuilder.addOption(sections[i].title(), String.valueOf(i));
+	public void postConstruct() {
+		try {
+			try (var stream = getClass().getResourceAsStream("/links.json")) {
+				sections = mapper.readValue(stream, Section[].class);
+			}
+			menuBuilder = SelectMenu.create("xmr/links browse").setPlaceholder("Choose topic");
+			for (int i = 0; i < sections.length; ++i) {
+				menuBuilder.addOption(sections[i].title(), String.valueOf(i));
+			}
+		} catch (Throwable t) {
+			Log.errorf(t, "Error in XmrLinksCommand#postConstruct");
 		}
 	}
 	
