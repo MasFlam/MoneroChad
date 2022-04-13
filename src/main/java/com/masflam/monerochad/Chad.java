@@ -14,6 +14,7 @@ import io.quarkus.runtime.StartupEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import okhttp3.OkHttpClient;
 
@@ -57,33 +58,28 @@ public class Chad {
 		for (String id : guildIds.split(",")) {
 			var guild = jda.getGuildById(id);
 			
-			guild.upsertCommand("untie", "Math")
-				.addSubcommands(
+			guild.updateCommands().addCommands(
+				Commands.slash("untie", "Math").addSubcommands(
 					new SubcommandData("help", "Command help"),
 					new SubcommandData("calc", "Calculate a mathematical expression")
 						.addOption(OptionType.STRING, "expression", "The expresion to calculate", true)
-				).queue();
-			guild.upsertCommand("price", "Get the price of a cryptocurrency")
-				.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)", true)
-				.queue();
-			guild.upsertCommand("bot", "Bot info").queue();
-			guild.upsertCommand("time", "Get current time around in the world")
-				.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true)
-				.queue();
-			guild.upsertCommand("xmr", "Monero-related commands")
-				.addSubcommands(
+				),
+				Commands.slash("price", "Get the price of a cryptocurrency")
+					.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)", true),
+				Commands.slash("bot", "Bot info"),
+				Commands.slash("time", "Get current time around in the world")
+					.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true),
+				Commands.slash("xmr", "Monero-related commands").addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
 					new SubcommandData("tx", "Get info on a monero transaction")
 						.addOption(OptionType.STRING, "hash", "Transaction hash", true),
 					new SubcommandData("network", "Monero network information"),
-					//new SubcommandData("mempool", "List transactions currently in the mempool"),
-					//new SubcommandData("txs", "List transactions")
-					//	.addOption(OptionType.INTEGER, "pageno", "Page number", false)
-					//	.addOption(OptionType.INTEGER, "pagesz", "Number of transactions per page", false),
 					new SubcommandData("block", "Get info on a block")
 						.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true),
 					new SubcommandData("links", "Get a list of links to Monero resources")
-				).queue();
+				)
+			).queue();
+			
 		}
 	}
 }
