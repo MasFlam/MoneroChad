@@ -66,8 +66,8 @@ public class Feeds {
 				prevLink = links.get(0);
 				return;
 			}
-			prevLink = links.get(0);
 			int prevInd = links.indexOf(prevLink);
+			prevLink = links.get(0);
 			Log.infof("Prev ind: %d", prevInd);
 			List<String> toSend = new ArrayList<>();
 			if (prevInd < 0) {
