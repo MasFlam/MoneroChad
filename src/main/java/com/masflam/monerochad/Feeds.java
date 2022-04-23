@@ -32,6 +32,9 @@ public class Feeds {
 	@Inject
 	public OkHttpClient httpClient;
 	
+	@Inject
+	public SAXReader saxReader;
+	
 	@ConfigProperty(name = "monerochad.news-channel-ids")
 	protected String newsChannelIds;
 	
@@ -57,8 +60,7 @@ public class Feeds {
 		);
 		try (var resp = call.execute()) {
 			Log.info("Executed call");
-			var reader = new SAXReader();
-			Document doc = reader.read(resp.body().byteStream());
+			Document doc = saxReader.read(resp.body().byteStream());
 			List<String> links = doc.selectNodes("/rss/channel/item/link").stream()
 				.map(Node::getText).collect(Collectors.toList());
 			Log.infof("Prev link: %s", prevLink);

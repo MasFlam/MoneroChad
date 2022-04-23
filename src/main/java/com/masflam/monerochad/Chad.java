@@ -8,6 +8,7 @@ import javax.security.auth.login.LoginException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.dom4j.io.SAXReader;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.runtime.StartupEvent;
@@ -44,6 +45,9 @@ public class Chad {
 	public OkHttpClient httpClient = new OkHttpClient();
 	
 	@Produces
+	public SAXReader saxReader = new SAXReader();
+	
+	@Produces
 	public JDA jda;
 	
 	@Produces
@@ -71,12 +75,12 @@ public class Chad {
 					.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true),
 				Commands.slash("xmr", "Monero-related commands").addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
+					new SubcommandData("links", "Get a list of links to Monero resources"),
 					new SubcommandData("tx", "Get info on a monero transaction")
 						.addOption(OptionType.STRING, "hash", "Transaction hash", true),
 					new SubcommandData("network", "Monero network information"),
 					new SubcommandData("block", "Get info on a block")
-						.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true),
-					new SubcommandData("links", "Get a list of links to Monero resources")
+						.addOption(OptionType.STRING, "block", "Blockheight (block number) or block hash", true)
 				)
 			).queue();
 			
