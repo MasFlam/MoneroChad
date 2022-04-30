@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import com.masflam.monerochad.Chad;
 import com.masflam.monerochad.CommandPath;
 import com.masflam.monerochad.command.handler.CommandHandler;
 import com.masflam.untie.UntieBaseVisitor;
@@ -34,6 +35,7 @@ import com.masflam.untie.expr.Where;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 
@@ -159,9 +161,12 @@ public class UntieCalcCommand implements CommandHandler {
 		
 		try {
 			double result = Expression.evaluate(expr, Map.of());
-			ihook.sendMessage("```\n" + expr + " = " + result + "\n```").queue();
+			var builder = new EmbedBuilder()
+				.setColor(Chad.ORANGE)
+				.setDescription("```\n" + expr + " = " + result + "\n```");
+			ihook.sendMessageEmbeds(builder.build()).queue();
 		} catch (UnrecognizedSymbolException use) {
-			ihook.sendMessage("Unrecognized symbol: `" + use.getSymbol() + "`").queue();
+			ihook.sendMessageEmbeds(Chad.failEmbed("Unrecognized symbol: `" + use.getSymbol() + "`").build()).queue();
 		}
 	}
 }

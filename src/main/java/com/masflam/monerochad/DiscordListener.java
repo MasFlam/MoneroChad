@@ -61,12 +61,12 @@ public class DiscordListener extends ListenerAdapter {
 				try {
 					handler.handle(event, ihook);
 				} catch (Throwable t) {
-					ihook.sendMessage("An error ocurred").queue();
+					ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 					Log.errorf(t, "Error in command handler");
 				}
 			});
 		} else {
-			event.reply("Unknown command").queue();
+			event.replyEmbeds(Chad.failEmbed("Unknown command").build()).queue();
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class DiscordListener extends ListenerAdapter {
 			try {
 				noDeferInstance.get().handleButton(event, idData);
 			} catch (Throwable t) {
-				event.reply("An error ocurred").queue();
+				event.replyEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 				Log.errorf(t, "Error in button handler");
 			}
 		} else {
@@ -95,7 +95,7 @@ public class DiscordListener extends ListenerAdapter {
 					try {
 						handler.handleButton(event, ihook, idData);
 					} catch (Throwable t) {
-						ihook.sendMessage("An error ocurred").queue();
+						ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 						Log.errorf(t, "Error in button handler");
 					}
 				});
@@ -107,12 +107,12 @@ public class DiscordListener extends ListenerAdapter {
 						try {
 							handler.handleButton(event, ihook, idData);
 						} catch (Throwable t) {
-							ihook.sendMessage("An error ocurred").queue();
+							ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 							Log.errorf(t, "Error in button handler");
 						}
 					});
 				} else {
-					event.reply("Unknown button clicked").queue();
+					event.replyEmbeds(Chad.failEmbed("Unknown button clicked").build()).queue();
 				}
 			}
 		}
@@ -132,7 +132,7 @@ public class DiscordListener extends ListenerAdapter {
 			try {
 				noDeferInstance.get().handleSelectMenu(event, idData);
 			} catch (Throwable t) {
-				event.reply("An error ocurred").queue();
+				event.replyEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 				Log.errorf(t, "Error in select menu handler");
 			}
 		} else {
@@ -144,7 +144,7 @@ public class DiscordListener extends ListenerAdapter {
 					try {
 						handler.handleSelectMenu(event, ihook, idData);
 					} catch (Throwable t) {
-						ihook.sendMessage("An error ocurred").queue();
+						ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 						Log.errorf(t, "Error in select menu handler");
 					}
 				});
@@ -156,12 +156,12 @@ public class DiscordListener extends ListenerAdapter {
 						try {
 							handler.handleSelectMenu(event, ihook, idData);
 						} catch (Throwable t) {
-							ihook.sendMessage("An error ocurred").queue();
+							ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
 							Log.errorf(t, "Error in select menu handler");
 						}
 					});
 				} else {
-					event.reply("Unknown select menu").queue();
+					event.replyEmbeds(Chad.failEmbed("Unknown select menu").build()).queue();
 				}
 			}
 		}

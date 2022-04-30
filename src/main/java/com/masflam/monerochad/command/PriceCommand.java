@@ -31,7 +31,7 @@ public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 		CryptoPrice cp = cgs.getPrice(ci.id());
 		var builder = new EmbedBuilder()
 			.setTitle("Price of " + ci.name())
-			.setColor(Chad.YELLOW)
+			.setColor(Chad.ORANGE)
 			.setFooter("Powered by CoinGecko", Chad.COIN_GECKO_LOGO_URL);
 		builder.getDescriptionBuilder()
 			.append("```\nUSD ").append("%.20f".formatted(cp.usd()).replaceAll("\\.?0*$", "")).append("\n```")
@@ -54,7 +54,7 @@ public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 		opts.addAll(bySymbol);
 		
 		if (opts.isEmpty()) {
-			ihook.sendMessage("Unknown crypto").queue();
+			ihook.sendMessageEmbeds(Chad.failEmbed("Unknown crypto").build()).queue();
 			return;
 		} else if (opts.size() == 1) {
 			CryptoInfo ci = null;

@@ -47,7 +47,7 @@ public class TimeCommand implements CommandHandler {
 		try {
 			ldt = LocalDateTime.now(ZoneId.of(zone, aliases));
 		} catch (Exception e) {
-			ihook.sendMessage("Unrecognized time zone or area").queue();
+			ihook.sendMessageEmbeds(Chad.failEmbed("Unrecognized time zone or area").build()).queue();
 			return;
 		}
 		var builder = new EmbedBuilder()

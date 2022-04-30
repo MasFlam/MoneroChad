@@ -12,6 +12,7 @@ import org.dom4j.io.SAXReader;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.runtime.StartupEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -52,6 +53,14 @@ public class Chad {
 	
 	@Produces
 	public ObjectMapper objectMapper = new ObjectMapper();
+	
+	public static EmbedBuilder failEmbed() {
+		return new EmbedBuilder().setColor(RED);
+	}
+	
+	public static EmbedBuilder failEmbed(String desc) {
+		return new EmbedBuilder().setColor(RED).setTitle(desc);
+	}
 	
 	public void onStartup(@Observes StartupEvent evt) throws LoginException, InterruptedException {
 		jda = JDABuilder.createLight(token)
