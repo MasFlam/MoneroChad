@@ -80,7 +80,7 @@ public class Chad {
 				Commands.slash("price", "Get the price of a cryptocurrency")
 					.addOption(OptionType.STRING, "crypto", "The CoinGecko ID of the crypto (e.g. monero)", true),
 				Commands.slash("bot", "Bot info"),
-				Commands.slash("time", "Get current time around in the world")
+				Commands.slash("time", "Get current time around the world")
 					.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true),
 				Commands.slash("xmr", "Monero-related commands").addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
