@@ -17,7 +17,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import io.quarkus.logging.Log;
 import io.quarkus.scheduler.Scheduled;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -25,6 +27,7 @@ import okhttp3.Request;
 public class Feeds {
 	
 	private static final String FEED_URL = "https://www.monero.observer/feed-mini.xml";
+	private static final String ICON_URL = "https://www.monero.observer/apple-touch-icon.png";
 	
 	@Inject
 	public JDA jda;
@@ -63,6 +66,8 @@ public class Feeds {
 			Document doc = saxReader.read(resp.body().byteStream());
 			List<String> links = doc.selectNodes("/rss/channel/item/link").stream()
 				.map(Node::getText).collect(Collectors.toList());
+			List<String> titles = doc.selectNodes("/rss/channel/item/title").stream()
+				.map(Node::getText).collect(Collectors.toList());
 			Log.infof("Prev link: %s", prevLink);
 			if (prevLink == null) {
 				prevLink = links.get(0);
@@ -72,18 +77,41 @@ public class Feeds {
 			prevLink = links.get(0);
 			Log.infof("Prev ind: %d", prevInd);
 			List<String> toSend = new ArrayList<>();
+			List<String> toSendTitles = new ArrayList<>();
 			if (prevInd < 0) {
-				toSend.addAll(links);
+				for (String link : links) {
+					toSend.add(link);
+				}
+				for (String title : titles) {
+					toSendTitles.add(title);
+				}
 			} else {
 				for (int i = 0; i < prevInd; ++i) {
 					toSend.add(links.get(i));
+					toSendTitles.add(titles.get(i));
 				}
 			}
 			Log.info("Sending messages");
 			for (long chanId : newsChannels) {
 				var chan = jda.getTextChannelById(chanId);
-				for (String link : toSend) {
-					chan.sendMessage(link).queue();
+				List<MessageEmbed> embeds = new ArrayList<>();
+				for (int i = 0; i < toSend.size(); ++i) {
+					String link = toSend.get(i);
+					String title = toSendTitles.get(i);
+					var embed = new EmbedBuilder()
+						.setColor(Chad.ORANGE)
+						.setTitle(title, link)
+						.setDescription(link)
+						.setFooter("Monero Observer", ICON_URL)
+						.build();
+					embeds.add(embed);
+					if (embeds.size() == 10) {
+						chan.sendMessageEmbeds(embeds).queue();
+						embeds.clear();
+					}
+				}
+				if (!embeds.isEmpty()) {
+					chan.sendMessageEmbeds(embeds).queue();
 				}
 			}
 		}
