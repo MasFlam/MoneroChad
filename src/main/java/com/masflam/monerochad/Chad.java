@@ -15,6 +15,7 @@ import io.quarkus.runtime.StartupEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
@@ -67,6 +68,8 @@ public class Chad {
 			.setHttpClient(httpClient)
 			.addEventListeners(discordListener)
 			.build().awaitReady();
+		
+		jda.getPresence().setActivity(Activity.watching("XMR"));
 		
 		for (String id : guildIds.split(",")) {
 			var guild = jda.getGuildById(id);
