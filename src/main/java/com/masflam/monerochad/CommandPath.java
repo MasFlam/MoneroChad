@@ -16,6 +16,7 @@ import javax.inject.Qualifier;
 public @interface CommandPath {
 	String value();
 	
+	@SuppressWarnings("all")
 	public static abstract class Literal extends AnnotationLiteral<CommandPath> implements CommandPath {
 		public static Literal of(String path) {
 			return new Literal() {
