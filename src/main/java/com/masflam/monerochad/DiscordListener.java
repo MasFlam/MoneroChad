@@ -9,6 +9,7 @@ import com.masflam.monerochad.command.handler.ButtonEditHandler;
 import com.masflam.monerochad.command.handler.ButtonNoDeferHandler;
 import com.masflam.monerochad.command.handler.ButtonReplyHandler;
 import com.masflam.monerochad.command.handler.CommandHandler;
+import com.masflam.monerochad.command.handler.CommandNoDeferHandler;
 import com.masflam.monerochad.command.handler.SelectMenuEditHandler;
 import com.masflam.monerochad.command.handler.SelectMenuNoDeferHandler;
 import com.masflam.monerochad.command.handler.SelectMenuReplyHandler;
@@ -25,6 +26,10 @@ public class DiscordListener extends ListenerAdapter {
 	@Inject
 	@Any
 	public Instance<CommandHandler> commandHandler;
+	
+	@Inject
+	@Any
+	public Instance<CommandNoDeferHandler> commandNoDeferHandler;
 	
 	@Inject
 	@Any
@@ -54,19 +59,29 @@ public class DiscordListener extends ListenerAdapter {
 	public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
 		String path = event.getCommandPath();
 		var annotation = CommandPath.Literal.of(path);
-		var instance = commandHandler.select(annotation);
-		if (instance.isResolvable()) {
-			var handler = instance.get();
-			event.deferReply().queue(ihook -> {
-				try {
-					handler.handle(event, ihook);
-				} catch (Throwable t) {
-					ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
-					Log.errorf(t, "Error in command handler");
-				}
-			});
+		var noDeferInstance = commandNoDeferHandler.select(annotation);
+		if (noDeferInstance.isResolvable()) {
+			try {
+				noDeferInstance.get().handle(event);
+			} catch (Throwable t) {
+				event.replyEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
+				Log.errorf(t, "Error in command handler");
+			}
 		} else {
-			event.replyEmbeds(Chad.failEmbed("Unknown command").build()).queue();
+			var instance = commandHandler.select(annotation);
+			if (instance.isResolvable()) {
+				var handler = instance.get();
+				event.deferReply().queue(ihook -> {
+					try {
+						handler.handle(event, ihook);
+					} catch (Throwable t) {
+						ihook.sendMessageEmbeds(Chad.failEmbed("An error ocurred").build()).queue();
+						Log.errorf(t, "Error in command handler");
+					}
+				});
+			} else {
+				event.replyEmbeds(Chad.failEmbed("Unknown command").build()).queue();
+			}
 		}
 	}
 	
