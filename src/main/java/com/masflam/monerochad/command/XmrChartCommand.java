@@ -53,8 +53,7 @@ public class XmrChartCommand implements CommandHandler {
 			candles.stream().map(Candle::o).toList(),
 			candles.stream().map(Candle::h).toList(),
 			candles.stream().map(Candle::l).toList(),
-			candles.stream().map(Candle::c).toList(),
-			candles.stream().map(Candle::volume).toList()
+			candles.stream().map(Candle::c).toList()
 		);
 		
 		var baos = new ByteArrayOutputStream();
