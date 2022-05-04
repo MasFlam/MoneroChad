@@ -88,7 +88,7 @@ public class Chad {
 					.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true),
 				Commands.slash("xmr", "Monero-related commands").addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
-					new SubcommandData("chart", "Get Monero price chart")
+					new SubcommandData("chart", "Get Monero price chart (has cooldown of 30 seconds)")
 						.addOptions(
 							new OptionData(OptionType.STRING, "exchange", "The exchange to get data about", true)
 								.addChoice("Binance", "binance;Binance;xmrusdt;XMR/USDT")
