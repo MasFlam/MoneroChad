@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import okhttp3.OkHttpClient;
 
@@ -87,6 +88,32 @@ public class Chad {
 					.addOption(OptionType.STRING, "timezone", "Time zone or location, case matters! (e.g. ET, CET, UTC+2, Europe/Brussels, America/New_York)", true),
 				Commands.slash("xmr", "Monero-related commands").addSubcommands(
 					new SubcommandData("price", "Get Monero price"),
+					new SubcommandData("chart", "Get Monero price chart")
+						.addOptions(
+							new OptionData(OptionType.STRING, "exchange", "The exchange to get data about", true)
+								.addChoice("Binance", "binance;Binance;xmrusdt;XMR/USDT")
+								.addChoice("Kraken", "kraken;Kraken;xmrusd;XMR/USD")
+								.addChoice("KuCoin", "kucoin;KuCoin;xmrusdt;XMR/USDT")
+								.addChoice("Okex", "okex;Okex;xmrusdt;XMR/USDT")
+								.addChoice("Huobi", "huobi;Huobi;xmrusdt;XMR/USDT")
+								.addChoice("Bitfinex", "bitfinex;Bitfinex;xmrusd;XMR/USD")
+								.addChoice("Gate.io", "gateio;Gate.io;xmrusdt;XMR/USDT")
+								.addChoice("HitBTC", "hitbtc;HitBTC;xmrusdt;XMR/USDT"),
+							new OptionData(OptionType.STRING, "interval", "How much time should one candle represent", true)
+								.addChoice("minute", "60")
+								.addChoice("3 minutes", "180")
+								.addChoice("5 minutes", "300")
+								.addChoice("15 minutes", "900")
+								.addChoice("30 minutes", "1800")
+								.addChoice("hour", "3600")
+								.addChoice("2 hours", "7200")
+								.addChoice("4 hours", "14400")
+								.addChoice("6 hours", "21600")
+								.addChoice("12 hours", "43200")
+								.addChoice("day", "86400")
+								.addChoice("3 days", "259200")
+								.addChoice("week", "604800")
+						),
 					new SubcommandData("links", "Get a list of links to Monero resources"),
 					new SubcommandData("tx", "Get info on a monero transaction")
 						.addOption(OptionType.STRING, "hash", "Transaction hash", true),
