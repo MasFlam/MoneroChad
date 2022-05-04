@@ -52,7 +52,11 @@ public class XmrChartCommand implements CommandNoDeferHandler {
 				String exchangeDisplayName = exchangeData[1];
 				String pair = exchangeData[2];
 				String pairDisplayName = exchangeData[3];
-				String interval = event.getOption("interval").getAsString();
+				
+				String intervalStr = event.getOption("interval").getAsString();
+				String[] intervalData = intervalStr.split(";");
+				String interval = intervalData[0];
+				String intervalDisplayName = intervalData[1];
 				
 				long intervalSeconds = Long.parseLong(interval);
 				long after = System.currentTimeMillis() / 1000 - 30 * intervalSeconds;
@@ -61,7 +65,7 @@ public class XmrChartCommand implements CommandNoDeferHandler {
 				
 				var chart = new OHLCChart(720, 480);
 				chart.getStyler().setLegendVisible(false);
-				chart.addSeries("XMR/USDT",
+				chart.addSeries("moonero",
 					candles.stream().map(c -> new Date(c.timestamp() * 1000)).toList(),
 					candles.stream().map(Candle::o).toList(),
 					candles.stream().map(Candle::h).toList(),
@@ -75,7 +79,7 @@ public class XmrChartCommand implements CommandNoDeferHandler {
 				var builder = new EmbedBuilder()
 				.setColor(Chad.ORANGE)
 					.setImage("attachment://chart.png")
-					.setFooter(pairDisplayName + " at " + exchangeDisplayName);
+					.setFooter("%s (%s) at %s".formatted(pairDisplayName, intervalDisplayName, exchangeDisplayName));
 				
 				ihook.sendFile(baos.toByteArray(), "chart.png")
 					.addEmbeds(builder.build())
