@@ -9,17 +9,20 @@ commands.
 /xmr price
  || Get current Monero price.
 
+/xmr chart <exchange> <timeframe>
+ || Get the last 30 candles of Monero's price chart.
+
+/xmr links
+ || Browse links to Monero-related sites and resources.
+
 /xmr tx <tx-hash>
  || Get info about the given Monero transaction.
-
-/xmr block <block-height|block-hash>
- || Get info about the given Monero block.
 
 /xmr network
  || Get info about the Monero network.
 
-/xmr links
- || Browse links to Monero-related sites and resources.
+/xmr block <block-height|block-hash>
+ || Get info about the given Monero block.
 
 
 ===== Cryptocurrency =====
