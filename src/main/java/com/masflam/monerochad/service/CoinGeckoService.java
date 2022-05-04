@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -40,7 +42,10 @@ public class CoinGeckoService {
 		long retrieved,
 		double usd,
 		double eur,
-		double btc
+		double btc,
+		double usd24hChange,
+		double eur24hChange,
+		double btc24hChange
 	) {}
 	
 	@RegisterForReflection
@@ -115,7 +120,10 @@ public class CoinGeckoService {
 			new Request.Builder()
 				.get()
 				.header("Accept", "application/json")
-				.url(BASE_URL + "/simple/price?vs_currencies=usd,eur,btc&ids=" + URLEncoder.encode(id, "utf-8"))
+				.url(BASE_URL +
+					"/simple/price?vs_currencies=usd,eur,btc&include_24hr_change=true&ids=" +
+					URLEncoder.encode(id, "utf-8")
+				)
 				.build()
 		).enqueue(new Callback() {
 			
@@ -136,7 +144,10 @@ public class CoinGeckoService {
 						System.currentTimeMillis(),
 						data.get("usd").asDouble(),
 						data.get("eur").asDouble(),
-						data.get("btc").asDouble()
+						data.get("btc").asDouble(),
+						data.get("usd_24h_change").asDouble(),
+						data.get("eur_24h_change").asDouble(),
+						data.get("btc_24h_change").asDouble()
 					));
 				} catch (Throwable t) {
 					future.completeExceptionally(t);
