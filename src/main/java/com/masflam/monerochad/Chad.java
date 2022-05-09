@@ -90,29 +90,25 @@ public class Chad {
 					new SubcommandData("price", "Get Monero price"),
 					new SubcommandData("chart", "Get Monero price chart (has cooldown of 30 seconds)")
 						.addOptions(
-							new OptionData(OptionType.STRING, "exchange", "The exchange to get data about", true)
-								.addChoice("Binance", "binance;Binance;xmrusdt;XMR/USDT")
-								.addChoice("Kraken", "kraken;Kraken;xmrusd;XMR/USD")
-								.addChoice("KuCoin", "kucoin;KuCoin;xmrusdt;XMR/USDT")
-								.addChoice("Okex", "okex;Okex;xmrusdt;XMR/USDT")
-								.addChoice("Huobi", "huobi;Huobi;xmrusdt;XMR/USDT")
-								.addChoice("Bitfinex", "bitfinex;Bitfinex;xmrusd;XMR/USD")
-								.addChoice("Gate.io", "gateio;Gate.io;xmrusdt;XMR/USDT")
-								.addChoice("HitBTC", "hitbtc;HitBTC;xmrusdt;XMR/USDT"),
+							new OptionData(OptionType.STRING, "vs", "Symbol of the coin to compare XMR to", true)
+								.addChoice("USDT", "xmrusdt;XMR/USDT")
+								.addChoice("BTC", "xmrbtc;XMR/BTC")
+								.addChoice("ETH", "xmreth;XMR/ETH")
+								.addChoice("BNB", "xmrbnb;XMR/BNB"),
 							new OptionData(OptionType.STRING, "interval", "How much time should one candle represent", true)
-								.addChoice("minute", "60;1m")
+								.addChoice("1 minute", "60;1m")
 								.addChoice("3 minutes", "180;3m")
 								.addChoice("5 minutes", "300;5m")
 								.addChoice("15 minutes", "900;15m")
 								.addChoice("30 minutes", "1800;30m")
-								.addChoice("hour", "3600;1h")
+								.addChoice("1 hour", "3600;1h")
 								.addChoice("2 hours", "7200;2h")
 								.addChoice("4 hours", "14400;4h")
 								.addChoice("6 hours", "21600;6h")
 								.addChoice("12 hours", "43200;12h")
-								.addChoice("day", "86400;1d")
+								.addChoice("1 day", "86400;1d")
 								.addChoice("3 days", "259200;3d")
-								.addChoice("week", "604800;1w")
+								.addChoice("1 week", "604800;1w")
 						),
 					new SubcommandData("links", "Get a list of links to Monero resources"),
 					new SubcommandData("tx", "Get info on a monero transaction")

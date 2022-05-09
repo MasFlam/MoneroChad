@@ -25,7 +25,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 @CommandPath("xmr/chart")
 public class XmrChartCommand implements CommandNoDeferHandler {
 	
-	private static final long COOLDOWN_MS = 30_000L;
+	private static final long COOLDOWN_MS = 10_000L;
 	
 	@Inject
 	public CryptowatchService cws;
@@ -46,22 +46,18 @@ public class XmrChartCommand implements CommandNoDeferHandler {
 		prevMillis = System.currentTimeMillis();
 		event.deferReply().queue(ihook -> {
 			try {
-				String exchangeStr = event.getOption("exchange").getAsString();
-				String[] exchangeData = exchangeStr.split(";");
-				String exchange = exchangeData[0];
-				String exchangeDisplayName = exchangeData[1];
-				String pair = exchangeData[2];
-				String pairDisplayName = exchangeData[3];
+				String[] pairData = event.getOption("vs").getAsString().split(";");
+				String pair = pairData[0];
+				String pairDisplayName = pairData[1];
 				
-				String intervalStr = event.getOption("interval").getAsString();
-				String[] intervalData = intervalStr.split(";");
+				String[] intervalData = event.getOption("interval").getAsString().split(";");
 				String interval = intervalData[0];
 				String intervalDisplayName = intervalData[1];
 				
 				long intervalSeconds = Long.parseLong(interval);
 				long after = System.currentTimeMillis() / 1000 - 30 * intervalSeconds;
 				
-				List<Candle> candles = cws.getOhlc(exchange, pair, interval, after);
+				List<Candle> candles = cws.getOhlc("binance", pair, interval, after);
 				
 				var chart = new OHLCChart(720, 480);
 				chart.getStyler().setLegendVisible(false);
@@ -77,9 +73,9 @@ public class XmrChartCommand implements CommandNoDeferHandler {
 				BitmapEncoder.saveBitmap(chart, baos, BitmapFormat.PNG);
 				
 				var builder = new EmbedBuilder()
-				.setColor(Chad.ORANGE)
+					.setColor(Chad.ORANGE)
 					.setImage("attachment://chart.png")
-					.setFooter("%s (%s) at %s".formatted(pairDisplayName, intervalDisplayName, exchangeDisplayName));
+					.setFooter("%s (%s) at Binance".formatted(pairDisplayName, intervalDisplayName));
 				
 				ihook.sendFile(baos.toByteArray(), "chart.png")
 					.addEmbeds(builder.build())
