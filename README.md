@@ -9,7 +9,7 @@ commands.
 /xmr price
  || Get current Monero price.
 
-/xmr chart <exchange> <timeframe>
+/xmr chart <vs> <timeframe>
  || Get the last 30 candles of Monero's price chart.
 
 /xmr links
