@@ -94,7 +94,8 @@ public class Chad {
 								.addChoice("USDT", "xmrusdt;XMR/USDT")
 								.addChoice("BTC", "xmrbtc;XMR/BTC")
 								.addChoice("ETH", "xmreth;XMR/ETH")
-								.addChoice("BNB", "xmrbnb;XMR/BNB"),
+								.addChoice("BNB", "xmrbnb;XMR/BNB")
+								.addChoice("BUSD", "xmrbusd;XMR/BUSD"),
 							new OptionData(OptionType.STRING, "interval", "How much time should one candle represent", true)
 								.addChoice("1 minute", "60;1m")
 								.addChoice("3 minutes", "180;3m")
