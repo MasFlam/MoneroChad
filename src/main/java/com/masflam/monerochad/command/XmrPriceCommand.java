@@ -1,6 +1,7 @@
 package com.masflam.monerochad.command;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 
 import com.masflam.monerochad.Chad;
@@ -20,6 +21,7 @@ public class XmrPriceCommand implements CommandHandler {
 	@Inject
 	public CoinGeckoService cgs;
 	
+	@Any
 	@Inject
 	public PriceCommand priceCommand;
 	
