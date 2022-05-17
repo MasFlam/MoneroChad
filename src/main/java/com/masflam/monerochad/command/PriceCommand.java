@@ -24,8 +24,39 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 @CommandPath("price")
 public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 	
+	private static final String UP_EMOTE = "<:green_up:971470873318014976>";
+	private static final String DOWN_EMOTE = "<:red_down:971470925985906759>";
+	
 	@Inject
 	public CoinGeckoService cgs;
+	
+	public void attachFields(EmbedBuilder builder, CryptoPrice cp) {
+		builder
+			.addField(
+				"USD %s %+.1f%%".formatted(
+					cp.usd24hChange() > 0 ? UP_EMOTE : DOWN_EMOTE,
+					cp.usd24hChange()
+				),
+				"```" + cp.usd() + "```",
+				true
+			)
+			.addField(
+				"EUR %s %+.1f%%".formatted(
+					cp.eur24hChange() > 0 ? UP_EMOTE : DOWN_EMOTE,
+					cp.eur24hChange()
+				),
+				"```" + cp.eur() + "```",
+				true
+			)
+			.addField(
+				"BTC %s %+.1f%%".formatted(
+					cp.btc24hChange() > 0 ? UP_EMOTE : DOWN_EMOTE,
+					cp.btc24hChange()
+				),
+				"```" + cp.btc() + "```",
+				true
+			);
+	}
 	
 	private EmbedBuilder response(CryptoInfo ci) throws Exception {
 		CryptoPrice cp = cgs.getPrice(ci.id());
@@ -34,12 +65,10 @@ public class PriceCommand implements CommandHandler, SelectMenuEditHandler {
 			.setColor(Chad.ORANGE)
 			.setFooter("Powered by CoinGecko", Chad.COIN_GECKO_LOGO_URL);
 		builder.getDescriptionBuilder()
-			.append("```\nUSD ").append("%.20f".formatted(cp.usd()).replaceAll("\\.?0*$", "")).append("\n```")
-			.append("```\nEUR ").append("%.20f".formatted(cp.eur()).replaceAll("\\.?0*$", "")).append("\n```")
-			.append("```\nBTC ").append("%.20f".formatted(cp.btc()).replaceAll("\\.?0*$", "")).append("\n```\n")
 			.append("ID: `").append(ci.id()).append("`\n")
 			.append("Symbol: `").append(ci.symbol()).append("`\n")
 			.append("Data from: <t:").append(cp.retrieved() / 1000L).append(":R>");
+		attachFields(builder, cp);
 		return builder;
 	}
 	
