@@ -2,7 +2,9 @@
 MoneroChad is a Discord bot that provides mainly Monero and cryptocurrency related commands.
 
 ### License
+
 Copyright (C) by Łukasz Drukała
+
 MoneroChad and all the code in this repository is licensed under the GNU Affero General Public License version 3.
 (**not** "3 or later"). A copy of the license is provided with the source code in the file named `LICENSE`.
 
