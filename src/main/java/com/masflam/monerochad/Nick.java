@@ -23,23 +23,11 @@ public class Nick {
 	@Inject
 	public JDA jda;
 	
-	private int cycle = 0;
-	
 	@Scheduled(every = "PT30S", delayed = "PT10S", identity = "nick-changing")
 	public void nick() {
 		try {
 			CryptoPrice cp = cgs.getPrice("monero");
-			if (cycle < 0 || cycle >= 4) {
-				cycle = 0;
-			}
-			String nick = switch (cycle) {
-				case 0 -> "$%.2f".formatted(cp.usd());
-				case 1 -> "€%.2f".formatted(cp.eur());
-				case 2 -> "₿%.8f".formatted(cp.btc());
-				case 3 -> "Monero Chad";
-				default -> "logic error?";
-			};
-			++cycle;
+			String nick = "$%.2f".formatted(cp.usd());
 			for (String guildId : guildIds.split(",")) {
 				jda.getGuildById(guildId).getSelfMember()
 					.modifyNickname(nick)
