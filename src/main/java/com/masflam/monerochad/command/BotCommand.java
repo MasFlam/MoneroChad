@@ -31,7 +31,8 @@ public class BotCommand implements CommandHandler {
 			.addField("Donations are welcome :)", "```%s```".formatted(ADDRESS), false);
 		builder.getDescriptionBuilder()
 			.append("Monero-themed Discord bot. <:xmr:909154208685629461>\n")
-			.append("Please report any encountered bugs to the author. :beetle:");
+			.append("Please report any encountered bugs as GitHub issues or directly to the author. :beetle:\n")
+			.append("**GitHub:** https://github.com/MasFlam/MoneroChad");
 		ihook.sendMessageEmbeds(builder.build()).queue();
 	}
 }
