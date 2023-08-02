@@ -1,8 +1,9 @@
 # MoneroChad Discord Bot
 MoneroChad is a Discord bot that provides Monero and cryptocurrency related commands.
 It used to be written in Java and JDA, but has been rewritten to Python and discord.py
-for performance (memory consumption) reasons. It has been running since April 2022
-on one of the Monero-focused Discord servers.
+for performance (memory consumption) reasons. The old java code sits on the `old-java` branch
+of this repository. MoneroChad has been running on one of the Monero-focused Discord servers
+since April 2022.
 
 ### License
 
