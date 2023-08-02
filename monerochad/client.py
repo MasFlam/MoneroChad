@@ -11,6 +11,8 @@ class MoneroChadClient(discord.Client):
 		self.tree.sync
 	
 	async def setup_hook(self):
-		print("dupa")
-		self.tree.copy_global_to(guild=guild)
-		await self.tree.sync(guild=guild)
+		for guild in guilds:
+			print(f"Registering commands for guild {guild.id}")
+			self.tree.copy_global_to(guild=guild)
+			await self.tree.sync(guild=guild)
+		print("Done registering commands")
