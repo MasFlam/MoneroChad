@@ -13,5 +13,6 @@ class Settings(BaseSettings):
 	PRICE_CACHE_TTL: timedelta = timedelta(minutes=1)
 	PRICE_CACHE_LIMIT: int = 15
 	NETWORK_INFO_CACHE_TTL: timedelta = timedelta(minutes=1)
+	NICK_LOOP_INTERVAL_SECONDS: float = 20.0
 
 settings = Settings()
