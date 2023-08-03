@@ -11,7 +11,7 @@ news_channel_ids = [int(x) for x in settings.NEWS_CHANNEL_IDS.split(",")]
 
 class MoneroChadClient(discord.Client):
 	def __init__(self, *, intents: discord.Intents):
-		super().__init__(intents=intents)
+		super().__init__(intents=intents, activity=discord.Activity(name="XMR", type=discord.ActivityType.watching))
 		self.tree = app_commands.CommandTree(self)
 		self._feed_last_id: str = None
 		self._feed_loop_first_run: bool = True
