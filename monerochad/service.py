@@ -234,3 +234,44 @@ class MoneroChainService:
 		return tx
 
 monerochain = MoneroChainService()
+
+@dataclass
+class Candle:
+	timestamp: datetime
+	o: float
+	h: float
+	l: float
+	c: float
+	volume: float
+
+class CryptowatchService:
+	BASE_URL: str = "https://api.cryptowat.ch"
+	
+	def get_ohlc(self, exchange: str, pair: str, interval: str, after: int) -> list[Candle]:
+		exchange = requests.utils.quote(exchange, safe="")
+		pair = requests.utils.quote(pair, safe="")
+		interval = requests.utils.quote(interval, safe="")
+		url = f"{self.BASE_URL}/markets/{exchange}/{pair}/ohlc"
+		params = {
+			"periods": interval,
+			"after": after
+		}
+		headers = {"accept": "application/json"}
+		r = requests.get(url=url, params=params, headers=headers)
+		r.raise_for_status()
+		
+		ohlcs = r.json()["result"][interval]
+		candles = []
+		for ohlc in ohlcs:
+			candles.append(Candle(
+				datetime.fromtimestamp(int(ohlc[0])),
+				float(ohlc[1]),
+				float(ohlc[2]),
+				float(ohlc[3]),
+				float(ohlc[4]),
+				float(ohlc[5]),
+			))
+		
+		return candles
+
+cryptowatch = CryptowatchService()

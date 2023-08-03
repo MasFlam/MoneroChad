@@ -2,7 +2,7 @@ from discord import app_commands
 from ..client import MoneroChadClient
 
 from . import bot, price
-from . import xmr_block, xmr_network, xmr_price, xmr_tx
+from . import xmr_block, xmr_chart, xmr_network, xmr_price, xmr_tx
 
 def register_all(client: MoneroChadClient):
 	bot.register(client.tree)
@@ -14,6 +14,7 @@ def register_all(client: MoneroChadClient):
 	xmr = XmrCommandsGroup()
 	
 	xmr_block.register(xmr)
+	xmr_chart.register(xmr)
 	xmr_network.register(xmr)
 	xmr_price.register(xmr)
 	xmr_tx.register(xmr)
