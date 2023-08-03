@@ -9,6 +9,7 @@ class Settings(BaseSettings):
 	
 	DISCORD_API_TOKEN: str
 	GUILD_IDS: str
+	REGISTER_COMMANDS: bool = True
 	PRICE_CACHE_TTL: timedelta = timedelta(minutes=1)
 	PRICE_CACHE_LIMIT: int = 15
 	NETWORK_INFO_CACHE_TTL: timedelta = timedelta(minutes=1)
