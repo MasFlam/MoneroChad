@@ -19,7 +19,7 @@ MoneroChad and all the code in this repository is licensed under the GNU Affero 
 /xmr price
  || Get current Monero price.
 
-/xmr chart <vs> <timeframe>  (Not implemented yet)
+/xmr chart <vs> <timeframe>
  || Get the last 30 candles of Monero's price chart.
 
 /xmr links  (Not implemented yet)
@@ -51,7 +51,7 @@ MoneroChad and all the code in this repository is licensed under the GNU Affero 
 
 ### Deployment
 
-The bot uses Python 3.10 features, so you at least that version.
+The bot uses Python 3.10 features, so you need at least that version.
 
 These instructions are meant for deployment on Linux.
 
