@@ -40,10 +40,8 @@ MoneroChad and all the code in this repository is licensed under the GNU Affero 
 /price <coingecko-id>
  || Get the price of the given crypto.
 
-===== Miscellaneous =====
 
-/time  (Not implemented yet)
- || Get current time in a given timezone.
+===== Miscellaneous =====
 
 /bot
  || Bot info and credits.
@@ -69,7 +67,7 @@ python3 -m pip install -r requirements.txt
 ```
 DISCORD_API_TOKEN=Your Discord API bot token
 GUILD_IDS=Comma separated IDs of guilds the bot runs in
-MONEROCHAD_NEWS_CHANNEL_IDS=Comma separated IDs of channels the bot relays news feeds to  (Not implemented yet)
+NEWS_CHANNEL_IDS=Comma separated IDs of channels the bot relays news feeds to
 ```
 Put this into a file named `.env` in the directory the bot will run in.
 
