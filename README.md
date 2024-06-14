@@ -47,11 +47,25 @@ MoneroChad and all the code in this repository is licensed under the GNU Affero 
  || Bot info and credits.
 ```
 
-### Deployment
+### Docker Deployment
 
-The bot uses Python 3.10 features, so you need at least that version.
+#### Build the image
+```sh
+docker build -t monerochad:0.2.1 -f docker/Dockerfile .
+```
 
-These instructions are meant for deployment on Linux.
+#### Create a `.env` file
+You copy and modify the one at [`docker/template.env`](docker/template.env).
+All the settings you can configure through `.env` are in [`config.py`](monerochad/config.py).
+
+#### Run the container
+```sh
+docker run --env-file path/to/your/.env monerochad:0.2.1
+```
+It doesn't need any volumes or ports exposed.
+
+### Manual Deployment (discouraged)
+These instructions are meant for deployment on Linux. You need Python 3.10 or higher.
 
 #### Create venv and install dependencies
 ```sh
@@ -64,14 +78,8 @@ python3 -m pip install -r requirements.txt
 ```
 
 #### Create a `.env` file
-```
-DISCORD_API_TOKEN=Your Discord API bot token
-GUILD_IDS=Comma separated IDs of guilds the bot runs in
-NEWS_CHANNEL_IDS=Comma separated IDs of channels the bot relays news feeds to
-```
-Put this into a file named `.env` in the directory the bot will run in.
-
-You can see all the settings you can configure through `.env` in [`config.py`](monerochad/config.py).
+You copy and modify the one at [`docker/template.env`](docker/template.env).
+All the settings you can configure through `.env` are in [`config.py`](monerochad/config.py).
 
 #### Run the bot
 ```sh
