@@ -5,30 +5,23 @@ import mplfinance as mpf
 import pandas
 import time
 from .. import common
-from ..service import Candle, cryptowatch
+from ..service import Candle, kraken
 
 VS_CHOICES = [
-	app_commands.Choice(name="USDT", value="xmrusdt;XMR/USDT"),
-	app_commands.Choice(name="BTC", value="xmrbtc;XMR/BTC"),
-	app_commands.Choice(name="ETH", value="xmreth;XMR/ETH"),
-	app_commands.Choice(name="BNB", value="xmrbnb;XMR/BNB"),
-	app_commands.Choice(name="BUSD", value="xmrbusd;XMR/BUSD"),
+	app_commands.Choice(name="USDT", value="XMRUSDT;XMR/USDT"),
+	app_commands.Choice(name="BTC", value="XXMRXXBT;XMR/BTC"),
 ]
 
 INTERVAL_CHOICES = [
-	app_commands.Choice(name="1 minute", value="60;1m"),
-	app_commands.Choice(name="3 minutes", value="180;3m"),
-	app_commands.Choice(name="5 minutes", value="300;5m"),
-	app_commands.Choice(name="15 minutes", value="900;15m"),
-	app_commands.Choice(name="30 minutes", value="1800;30m"),
-	app_commands.Choice(name="1 hour", value="3600;1h"),
-	app_commands.Choice(name="2 hours", value="7200;2h"),
-	app_commands.Choice(name="4 hours", value="14400;4h"),
-	app_commands.Choice(name="6 hours", value="21600;6h"),
-	app_commands.Choice(name="12 hours", value="43200;12h"),
-	app_commands.Choice(name="1 day", value="86400;1d"),
-	app_commands.Choice(name="3 days", value="259200;3d"),
-	app_commands.Choice(name="1 week", value="604800;1w"),
+	app_commands.Choice(name="1 minute", value="1;1m"),
+	app_commands.Choice(name="5 minutes", value="5;5m"),
+	app_commands.Choice(name="15 minutes", value="15;15m"),
+	app_commands.Choice(name="30 minutes", value="30;30m"),
+	app_commands.Choice(name="1 hour", value="60;1h"),
+	app_commands.Choice(name="4 hours", value="240;4h"),
+	app_commands.Choice(name="1 day", value="1440;1d"),
+	app_commands.Choice(name="1 week", value="10080;1w"),
+	app_commands.Choice(name="15 days", value="21600;15d"),
 ]
 
 # Remember to update the command description too when changing the cooldown
@@ -62,10 +55,10 @@ def register(group: app_commands.Group):
 		pair, pair_display_name = vs_val.split(";")
 		interval, interval_display_name = interval_val.split(";")
 		
-		interval_seconds = int(interval)
-		after = int(time.time()) - 30 * interval_seconds
+		interval_minutes = int(interval)
+		since = (int(time.time()) - 30 * interval_minutes*60)
 		
-		candles = cryptowatch.get_ohlc("binance", pair, interval, after)
+		candles = kraken.get_ohlc(pair, interval, since)
 		df = pandas.DataFrame([
 			{
 				"Date": candle.timestamp,
@@ -84,6 +77,6 @@ def register(group: app_commands.Group):
 		
 		embed = discord.Embed(color=common.ORANGE)
 		embed.set_image(url="attachment://chart.png")
-		embed.set_footer(text=f"{pair_display_name} ({interval_display_name}) on Binance\nPowered by Cryptowatch API")
+		embed.set_footer(text=f"{pair_display_name} ({interval_display_name}) on Kraken")
 		
 		await interaction.followup.send(file=discord.File(fp=buf, filename="chart.png"), embed=embed)

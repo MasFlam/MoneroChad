@@ -244,23 +244,27 @@ class Candle:
 	c: float
 	volume: float
 
-class CryptowatchService:
-	BASE_URL: str = "https://api.cryptowat.ch"
+class KrakenService:
+	BASE_URL: str = "https://api.kraken.com/0"
 	
-	def get_ohlc(self, exchange: str, pair: str, interval: str, after: int) -> list[Candle]:
-		exchange = requests.utils.quote(exchange, safe="")
+	def get_ohlc(self, pair: str, interval: str, since: int) -> list[Candle]:
 		pair = requests.utils.quote(pair, safe="")
 		interval = requests.utils.quote(interval, safe="")
-		url = f"{self.BASE_URL}/markets/{exchange}/{pair}/ohlc"
+		url = f"{self.BASE_URL}/public/OHLC"
 		params = {
-			"periods": interval,
-			"after": after
+			"pair": pair,
+			"interval": interval,
+			"since": since
 		}
 		headers = {"accept": "application/json"}
 		r = requests.get(url=url, params=params, headers=headers)
 		r.raise_for_status()
 		
-		ohlcs = r.json()["result"][interval]
+		# The API returns an array of arrays like this:
+		# [time: int, open: str, high: str, low: str, close: str, vwap: str, volume: str, count: int]
+		# (time is in seconds since epoch)
+		ohlcs = r.json()["result"][pair]
+		
 		candles = []
 		for ohlc in ohlcs:
 			candles.append(Candle(
@@ -269,9 +273,9 @@ class CryptowatchService:
 				float(ohlc[2]),
 				float(ohlc[3]),
 				float(ohlc[4]),
-				float(ohlc[5]),
+				float(ohlc[6]),
 			))
 		
 		return candles
 
-cryptowatch = CryptowatchService()
+kraken = KrakenService()
