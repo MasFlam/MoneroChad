@@ -2,21 +2,22 @@ from datetime import timezone
 import discord
 from discord import app_commands
 from .. import common
+from ..config import settings
 from ..service import CryptoInfo, CryptoPrice, coingecko
 
 def attach_fields(embed: discord.Embed, cp: CryptoPrice):
 	embed.add_field(
-		name=f"USD {common.UP_EMOJI if cp.usd_24h_change > 0 else common.DOWN_EMOJI} {cp.usd_24h_change:+.1f}%",
+		name=f"USD {settings.UP_EMOJI if cp.usd_24h_change > 0 else settings.DOWN_EMOJI} {cp.usd_24h_change:+.1f}%",
 		value=f"```{cp.usd}```",
 		inline=True
 	)
 	embed.add_field(
-		name=f"EUR {common.UP_EMOJI if cp.eur_24h_change > 0 else common.DOWN_EMOJI} {cp.eur_24h_change:+.1f}%",
+		name=f"EUR {settings.UP_EMOJI if cp.eur_24h_change > 0 else settings.DOWN_EMOJI} {cp.eur_24h_change:+.1f}%",
 		value=f"```{cp.eur}```",
 		inline=True
 	)
 	embed.add_field(
-		name=f"BTC {common.UP_EMOJI if cp.btc_24h_change > 0 else common.DOWN_EMOJI} {cp.btc_24h_change:+.1f}%",
+		name=f"BTC {settings.UP_EMOJI if cp.btc_24h_change > 0 else settings.DOWN_EMOJI} {cp.btc_24h_change:+.1f}%",
 		value=f"```{cp.btc}```",
 		inline=True
 	)

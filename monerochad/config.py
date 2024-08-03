@@ -17,5 +17,9 @@ class Settings(BaseSettings):
 	NETWORK_INFO_CACHE_TTL: timedelta = timedelta(minutes=1)
 	NICK_LOOP_INTERVAL_SECONDS: float = 20.0
 	FEED_LOOP_INTERVAL_MINUTES: float = 20.0
+	
+	# You should add the emojis in /assets to your bot app and replace these in your .env.
+	UP_EMOJI: str = "<:green_up:1269286678053261436>"
+	DOWN_EMOJI: str = "<:red_down:1269286696755925094>"
 
 settings = Settings()

@@ -10,9 +10,9 @@ def register(tree: app_commands.CommandTree):
 			title="MoneroChad",
 			color=common.ORANGE,
 			description=(
-				f"Monero-themed Discord bot. {common.XMR_EMOJI}\n" + 
-				"Please report any encountered bugs as GitHub issues or directly to the author. :beetle:\n" + 
-				"**GitHub:** https://github.com/MasFlam/MoneroChad"
+				f"Monero-themed Discord bot.\n" + 
+				"Report bugs to the author or on GitHub:\n" + 
+				"https://github.com/MasFlam/MoneroChad"
 			)
 		)
 		embed.add_field(name="Author", value=common.AUTHOR_MENTION, inline=True)

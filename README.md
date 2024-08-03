@@ -51,7 +51,7 @@ MoneroChad and all the code in this repository is licensed under the GNU Affero 
 
 #### Build the image
 ```sh
-docker build -t monerochad:0.2.1 -f docker/Dockerfile .
+docker build -t monerochad:0.2.2 -f docker/Dockerfile .
 ```
 
 #### Create a `.env` file
@@ -60,7 +60,7 @@ All the settings you can configure through `.env` are in [`config.py`](monerocha
 
 #### Run the container
 ```sh
-docker run --env-file path/to/your/.env monerochad:0.2.1
+docker run --env-file path/to/your/.env monerochad:0.2.2
 ```
 It doesn't need any volumes or ports exposed.
 
