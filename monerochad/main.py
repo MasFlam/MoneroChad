@@ -9,6 +9,7 @@ def main():
 		formatter='{asctime} [{name}/{filename}/{funcName}:{lineno}] {levelname}: {message}',
 		datefmt='%Y-%m-%d %H:%M:%S',
 		style='{',
+		level=logging.INFO,
 	)
 	bot = MoneroChadClient(intents=discord.Intents.default())
 	commands.register_all(bot)
