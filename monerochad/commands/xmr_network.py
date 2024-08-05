@@ -1,9 +1,12 @@
 import discord
 from discord import app_commands
+import logging
 from time import sleep
 from . import price as price_cmd
 from .. import common
 from ..service import NetworkInfo, monerochain
+
+logger = logging.getLogger(__name__)
 
 def register(group: app_commands.Group):
 	@group.command(name="network", description="Monero network information")
@@ -17,7 +20,7 @@ def register(group: app_commands.Group):
 			try:
 				ni = monerochain.get_network_info()
 			except:
-				print("Stupid buggy /networkinfo")
+				logger.error("Stupid buggy /networkinfo")
 				sleep(0.4)
 				ntries += 1
 		
