@@ -49,20 +49,31 @@ class MoneroChadClient(discord.Client):
 			logger.info("Feed loop started")
 		else:
 			logger.info("Skipping feed loop start")
-	
-	@tasks.loop(seconds=settings.NICK_LOOP_INTERVAL_SECONDS)
-	async def nick_loop(self):
-		try:
-			cp = coingecko.get_price("monero")
-			nick = f"${cp.usd:.2f} | MoneroChad"
-			for guild in self.guilds:
-				await guild.me.edit(nick=nick)
-		except BaseException as ex:
-			logger.error("Exception in the nick loop", exc_info=True)
-			for da_id in debug_admin_ids:
-				da = await self.fetch_user(da_id)
-				await da.send(f"Exception in the news feed loop:\n```\n{ex}\n```")
-	
+
+        @tasks.loop(seconds=settings.NICK_LOOP_INTERVAL_SECONDS)
+        async def nick_loop(self):
+            try:
+                # main loop
+                cp = coingecko.get_price("monero")
+                nick = f"${cp.usd:.2f} | MoneroChad"
+                for guild in self.guilds:
+                    try:
+                        await guild.me.edit(nick=nick)
+                    except discord.errors.Forbidden as forbidden_error:
+                        logger.error(f"Could not change nickname in guild {guild.id}: {forbidden_error}")
+                        # even if it fails, continue with other guilds
+            except BaseException as ex:
+                logger.error("Exception in the nick loop", exc_info=True)
+                for da_id in debug_admin_ids:
+                    try:
+                        da = await self.fetch_user(da_id)
+                        await da.send(f"Exception in the nick loop:\n```\n{ex}\n```")
+                    except discord.errors.Forbidden as forbidden_error: # God forbid not send message, god teach not interrupt dragon tiger fight
+                        logger.error(f"Could not send exception message to admin {da_id}: {forbidden_error}")
+            # loop go on even after error
+            finally:
+                pass  # life goes on and on and on
+
 	@tasks.loop(minutes=settings.FEED_LOOP_INTERVAL_MINUTES)
 	async def feed_loop(self):
 		FEED_URL = "https://www.monero.observer/feed-mini.xml"
@@ -122,3 +133,5 @@ class MoneroChadClient(discord.Client):
 			for da_id in debug_admin_ids:
 				da = await self.fetch_user(da_id)
 				await da.send(f"Exception in the news feed loop:\n```\n{ex}\n```")
+
+
