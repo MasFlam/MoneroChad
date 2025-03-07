@@ -20,6 +20,14 @@ class Settings(BaseSettings):
 	NICK_LOOP_INTERVAL_SECONDS: float = 20.0
 	FEED_LOOP_INTERVAL_MINUTES: float = 20.0
 	
+	# This one sadly stopped serving the API, you'll have to find a different instance
+	# or host your own: https://github.com/moneroexamples/onion-monero-blockchain-explorer
+	XMRBLOCKS_API_BASE_URL: str = "https://xmrchain.net/api"
+	
+	KRAKEN_API_BASE_URL: str = "https://api.kraken.com/0"
+	
+	COINGECKO_API_BASE_URL: str = "https://api.coingecko.com/api/v3"
+	
 	# You should add the emojis in /assets to your bot app and replace these in your .env.
 	UP_EMOJI: str = "<:green_up:1269286678053261436>"
 	DOWN_EMOJI: str = "<:red_down:1269286696755925094>"

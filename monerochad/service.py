@@ -22,7 +22,7 @@ class CryptoInfo:
 	name: str
 
 class CoinGeckoService:
-	BASE_URL: str = "https://api.coingecko.com/api/v3"
+	BASE_URL: str = settings.COINGECKO_API_BASE_URL
 	
 	def __init__(self):
 		self.info_by_id: dict[str, CryptoInfo] = dict()
@@ -131,7 +131,7 @@ class TransactionData:
 	outputs: list[Output]
 
 class MoneroChainService:
-	BASE_URL: str = "https://xmrchain.net/api"
+	BASE_URL: str = settings.XMRBLOCKS_API_BASE_URL
 	
 	def __init__(self):
 		self._ni_cache = None
@@ -245,7 +245,7 @@ class Candle:
 	volume: float
 
 class KrakenService:
-	BASE_URL: str = "https://api.kraken.com/0"
+	BASE_URL: str = settings.KRAKEN_API_BASE_URL
 	
 	def get_ohlc(self, pair: str, interval: str, since: int) -> list[Candle]:
 		pair = requests.utils.quote(pair, safe="")
