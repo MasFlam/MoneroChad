@@ -6,7 +6,7 @@ from .config import settings
 
 def main():
 	logging.basicConfig(
-		formatter='{asctime} [{name}/{filename}/{funcName}:{lineno}] {levelname}: {message}',
+		format='{asctime} [{name}/{filename}/{funcName}:{lineno}] {levelname}: {message}',
 		datefmt='%Y-%m-%d %H:%M:%S',
 		style='{',
 		level=logging.INFO,
