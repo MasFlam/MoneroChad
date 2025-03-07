@@ -27,7 +27,6 @@ def register(group: app_commands.Group):
 		embed.add_field(name="Confirmations", value=str(tx.confirmations), inline=True)
 		embed.add_field(name="Inputs", value=str(len(tx.inputs)), inline=True)
 		embed.add_field(name="Outputs", value=str(len(tx.outputs)), inline=True)
-		embed.set_footer(text="Powered by xmrchain.net API")
 		
 		desc = f"`{tx.hash}`"
 		if tx.coinbase:

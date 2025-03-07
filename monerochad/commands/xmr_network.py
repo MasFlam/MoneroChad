@@ -32,5 +32,4 @@ def register(group: app_commands.Group):
 		embed.add_field(name="Hashrate", value=f"{ni.hash_rate/1e9:.2f} GH/s", inline=True)
 		embed.add_field(name="Hard Fork", value=f"v{ni.hard_fork_version}", inline=True)
 		embed.add_field(name="All-time Transactions", value=str(ni.tx_count), inline=True)
-		embed.set_footer(text="Powered by xmrchain.net API")
 		await interaction.followup.send(embed=embed)

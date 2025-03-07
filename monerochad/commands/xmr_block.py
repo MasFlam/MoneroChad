@@ -22,7 +22,6 @@ def register(group: app_commands.Group):
 		embed.add_field(name="Date and Time", value=f"<t:{block.timestamp}>", inline=True)
 		embed.add_field(name="Size", value=f"{block.size} B", inline=True)
 		embed.add_field(name="Transactions", value=str(len(block.transactions)), inline=True)
-		embed.set_footer(text="Powered by xmrchain.net API")
 		
 		class TheView(discord.ui.View):
 			def __init__(self):
