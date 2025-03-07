@@ -59,9 +59,12 @@ class MoneroChadClient(discord.Client):
 				await guild.me.edit(nick=nick)
 		except BaseException as ex:
 			logger.error("Exception in the nick loop", exc_info=True)
-			for da_id in debug_admin_ids:
-				da = await self.fetch_user(da_id)
-				await da.send(f"Exception in the news feed loop:\n```\n{ex}\n```")
+			try:
+				for da_id in debug_admin_ids:
+					da = await self.fetch_user(da_id)
+					await da.send(f"Exception in the news feed loop:\n```\n{ex}\n```")
+			except BaseException as ex:
+				logger.error("Exception in the nick loop while messaging the admin about it", exc_info=True)
 	
 	@tasks.loop(minutes=settings.FEED_LOOP_INTERVAL_MINUTES)
 	async def feed_loop(self):
@@ -119,6 +122,9 @@ class MoneroChadClient(discord.Client):
 			self._feed_last_id = urls[0]
 		except BaseException as ex:
 			logger.error("Exception in the news feed loop", exc_info=True)
-			for da_id in debug_admin_ids:
-				da = await self.fetch_user(da_id)
-				await da.send(f"Exception in the news feed loop:\n```\n{ex}\n```")
+			try:
+				for da_id in debug_admin_ids:
+					da = await self.fetch_user(da_id)
+					await da.send(f"Exception in the news feed loop:\n```\n{ex}\n```")
+			except BaseException as ex:
+				logger.error("Exception in the news feed loop while messaging the admin about it", exc_info=True)
