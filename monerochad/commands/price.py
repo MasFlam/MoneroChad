@@ -23,7 +23,10 @@ def attach_fields(embed: discord.Embed, cp: CryptoPrice):
 	)
 
 def response_embed(ci: CryptoInfo) -> discord.Embed:
-	cp = coingecko.get_price(ci.id)
+	try:
+		cp = coingecko.get_price(ci.id)
+	except:
+		return common.fail_embed("Error retrieving data")
 	# TODO: fix UTC timestamps
 	tstamp = int(cp.retrieved.astimezone(timezone.utc).timestamp())
 	embed = discord.Embed(

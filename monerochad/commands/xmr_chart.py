@@ -58,7 +58,12 @@ def register(group: app_commands.Group):
 		interval_minutes = int(interval)
 		since = (int(time.time()) - 30 * interval_minutes*60)
 		
-		candles = kraken.get_ohlc(pair, interval, since)
+		try:
+			candles = kraken.get_ohlc(pair, interval, since)
+		except:
+			await interaction.followup.send(embed=common.fail_embed("Error retrieving data"))
+			return
+		
 		df = pandas.DataFrame([
 			{
 				"Date": candle.timestamp,

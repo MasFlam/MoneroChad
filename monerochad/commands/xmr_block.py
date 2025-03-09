@@ -12,7 +12,11 @@ def register(group: app_commands.Group):
 	async def cmd(interaction: discord.Interaction, block_hash_or_height: str):
 		await interaction.response.defer()
 		
-		block = monerochain.get_block_data(block_hash_or_height)
+		try:
+			block = monerochain.get_block_data(block_hash_or_height)
+		except:
+			await interaction.followup.send(embed=common.fail_embed("Error retrieving data"))
+			return
 		
 		embed = discord.Embed(
 			title=f"Monero Block {block.height}",

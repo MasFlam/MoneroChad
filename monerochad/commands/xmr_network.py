@@ -24,6 +24,10 @@ def register(group: app_commands.Group):
 				sleep(0.4)
 				ntries += 1
 		
+		if ntries == 3:
+			await interaction.followup.send(embed=common.fail_embed("Error retrieving data"))
+			return
+		
 		embed = discord.Embed()
 		embed.color = common.ORANGE
 		embed.add_field(name="Block height", value=str(ni.block_height), inline=True)

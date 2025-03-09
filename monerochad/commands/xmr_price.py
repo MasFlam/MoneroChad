@@ -8,7 +8,13 @@ def register(group: app_commands.Group):
 	@group.command(name="price", description="Get Monero price")
 	async def cmd(interaction: discord.Interaction):
 		await interaction.response.defer()
-		cp = coingecko.get_price("monero")
+		
+		try:
+			cp = coingecko.get_price("monero")
+		except:
+			await interaction.followup.send(embed=common.fail_embed("Error retrieving data"))
+			return
+		
 		embed = discord.Embed()
 		embed.set_author(name="Monero price", icon_url=common.MONERO_LOGO_URL)
 		embed.color = common.ORANGE

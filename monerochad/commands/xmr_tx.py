@@ -12,7 +12,11 @@ def register(group: app_commands.Group):
 	async def cmd(interaction: discord.Interaction, tx_hash: str):
 		await interaction.response.defer()
 		
-		tx = monerochain.get_transaction_data(tx_hash)
+		try:
+			tx = monerochain.get_transaction_data(tx_hash)
+		except:
+			await interaction.followup.send(embed=common.fail_embed("Error retrieving data"))
+			return
 		
 		embed = discord.Embed(
 			title="Monero Transaction",
