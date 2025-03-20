@@ -4,3 +4,5 @@ pydantic-settings==2.3.3
 requests==2.32.3
 mplfinance==0.12.10b0
 defusedxml==0.7.1
+psycopg[binary,pool]==3.2.6
+qrcode[pil]==8.0
