@@ -20,6 +20,10 @@ class Settings(BaseSettings):
 	NICK_LOOP_INTERVAL_SECONDS: float = 20.0
 	FEED_LOOP_INTERVAL_MINUTES: float = 20.0
 	
+	DB_URL: str
+	DB_POOL_MIN_SIZE: int = 1
+	DB_POOL_MAX_SIZE: int = 2
+	
 	# This one sadly stopped serving the API, you'll have to find a different instance
 	# or host your own: https://github.com/moneroexamples/onion-monero-blockchain-explorer
 	XMRBLOCKS_API_BASE_URL: str = "https://xmrchain.net/api"
