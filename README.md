@@ -63,28 +63,3 @@ All the settings you can configure through `.env` are in [`config.py`](monerocha
 docker run --env-file path/to/your/.env monerochad:0.2.3
 ```
 It doesn't need any volumes or ports exposed.
-
-### Manual Deployment (discouraged)
-These instructions are meant for deployment on Linux. You need Python 3.10 or higher.
-
-#### Create venv and install dependencies
-```sh
-# Create virtual environment
-python3 -m venv .venv
-# Activate virtual environment
-source .venv/bin/activate
-# Install dependencies
-python3 -m pip install -r requirements.txt
-```
-
-#### Create a `.env` file
-You copy and modify the one at [`docker/template.env`](docker/template.env).
-All the settings you can configure through `.env` are in [`config.py`](monerochad/config.py).
-
-#### Run the bot
-```sh
-# Activate virtual environment
-source .venv/bin/activate
-# Run the bot
-python3 -m monerochad.main
-```
