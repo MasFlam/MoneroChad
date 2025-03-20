@@ -1,12 +1,14 @@
 from discord import app_commands
 from ..client import MoneroChadClient
 
-from . import bot, price
+from . import bot, price, tip, tipjar
 from . import xmr_block, xmr_chart, xmr_network, xmr_price, xmr_tx
 
 def register_all(client: MoneroChadClient):
 	bot.register(client.tree)
 	price.register(client.tree)
+	tip.register(client.tree)
+	tipjar.register(client.tree)
 	
 	class XmrCommandsGroup(app_commands.Group):
 		def __init__(self):
