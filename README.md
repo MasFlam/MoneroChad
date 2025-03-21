@@ -47,19 +47,21 @@ MoneroChad and all the code in this repository is licensed under the GNU Affero 
  || Bot info and credits.
 ```
 
-### Docker Deployment
+### Deployment with Docker Compose
 
-#### Build the image
+There is a basic [`compose.yaml`](docker/compose.yaml) that you can modify to fit your needs.
+All the settings configurable through environment variables are listed in [`config.py`](monerochad/config.py).
+
+To start, you can just replace the environment variables with your data, and run the bot using:
 ```sh
-docker build -t monerochad:0.2.3 -f docker/Dockerfile .
-```
+# Inside the ./docker directory:
+docker compose up -d
 
-#### Create a `.env` file
-You copy and modify the one at [`docker/template.env`](docker/template.env).
-All the settings you can configure through `.env` are in [`config.py`](monerochad/config.py).
+# Inspect logs:
+docker compose logs -f
 
-#### Run the container
-```sh
-docker run --env-file path/to/your/.env monerochad:0.2.3
+# Shut down:
+docker compose down
 ```
-It doesn't need any volumes or ports exposed.
+For more information, see the [Docker Compose docs](https://docs.docker.com/compose/).
+

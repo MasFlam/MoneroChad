@@ -1,0 +1,27 @@
+services:
+  monerochad:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DISCORD_API_TOKEN=Your Discord API bot token
+      - GUILD_IDS=Comma separated IDs of guilds the bot runs in
+      - NEWS_CHANNEL_IDS=Comma separated IDs of channels the bot relays news feeds to
+      - DEBUG_ADMIN_IDS=Comma separated IDS of users the bot will message when any error occurrs
+      - DB_URL=postgresql://user:pass@postgres:5432/monerochad
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=monerochad
+    volumes:
+      - monerochad_postgres_data:/var/lib/postgresql/data
+      - ../schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    restart: always
+
+volumes:
+  monerochad_postgres_data:
