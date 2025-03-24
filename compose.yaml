@@ -20,7 +20,7 @@ services:
       - POSTGRES_DB=monerochad
     volumes:
       - monerochad_postgres_data:/var/lib/postgresql/data
-      - ../schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
     restart: always
 
 volumes:
