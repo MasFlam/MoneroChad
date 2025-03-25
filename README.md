@@ -65,3 +65,6 @@ docker compose down
 ```
 For more information, see the [Docker Compose docs](https://docs.docker.com/compose/).
 
+Note that this compose file mounts `./schema.sql` as a volume to the postgres container, which is
+the file executed on the container's first start, to create the `tipjars` table in the database.
+
